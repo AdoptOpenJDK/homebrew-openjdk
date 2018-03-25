@@ -8,3 +8,5 @@ brew install <version>
 ## Versions
 
 - adoptopenjdk-openjdk8
+- adoptopenjdk-openjdk9
+- adoptopenjdk-openjdk10
