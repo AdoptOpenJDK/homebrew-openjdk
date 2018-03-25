@@ -1,3 +1,5 @@
+# AdoptOpenJDK - HomeBrew TAP
+
 ## To use:
 
 ```bash
