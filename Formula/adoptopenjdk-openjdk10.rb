@@ -14,6 +14,6 @@ class AdoptopenjdkOpenjdk10 < Formula
   end
 
   test do
-    system libexec/"bin/java", "-version"
+    system prefix/"bin/java", "-version"
   end
 end
