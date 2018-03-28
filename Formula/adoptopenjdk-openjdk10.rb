@@ -11,6 +11,7 @@ class AdoptopenjdkOpenjdk10 < Formula
   def install
     prefix.install Dir["*"]
     ENV.prepend_path "PATH", Formula["adoptopenjdk-openjdk10"].libexec/"bin"
+    opoo "These binaries are not JCK compliant and should not be used in production"
   end
 
   test do
