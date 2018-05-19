@@ -4,14 +4,13 @@
 class AdoptopenjdkOpenjdk8 < Formula
   desc "AdoptOpenJDK main binary releases for OpenJDK 8 with HotSpot"
   homepage "https://adoptopenjdk.net/"
-  url "https://github.com/AdoptOpenJDK/openjdk8-releases/releases/download/jdk8u144-b01/OpenJDK8_x64_Mac_jdk8u144-b01.tar.gz"
-  version "jdk8u144-b01"
-  sha256 "dc0ae0cd1d87fa7b05cc7b4e3dcedcbb7f8f268118cdffb6d037dbd22ea82f13"
+  url "https://github.com/AdoptOpenJDK/openjdk8-releases/releases/download/jdk8u172-b11/OpenJDK8_x64_Mac_jdk8u172-b11.tar.gz"
+  version "jdk8u172-b11"
+  sha256 "228d85bef36f5893885b52cb571101418c4f8b87c689996ace55d85b720b2a12"
 
   def install
     prefix.install Dir["*"]
     ENV.prepend_path "PATH", Formula["adoptopenjdk-openjdk8"].libexec/"bin"
-    opoo "These binaries are not JCK compliant and should not be used in production"
   end
 
   test do
