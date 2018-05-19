@@ -6,7 +6,7 @@ class AdoptopenjdkOpenjdk8 < Formula
   homepage "https://adoptopenjdk.net/"
   url "https://github.com/AdoptOpenJDK/openjdk8-releases/releases/download/jdk8u172-b11/OpenJDK8_x64_Mac_jdk8u172-b11.tar.gz"
   version "jdk8u172-b11"
-  sha256 "228d85bef36f5893885b52cb571101418c4f8b87c689996ace55d85b720b2a12"
+  sha256 "c271c5aeebfec5cd6f41c24092472a66fc55f893e3118e63f4c1ab1cb4446157"
 
   def install
     prefix.install Dir["*"]
