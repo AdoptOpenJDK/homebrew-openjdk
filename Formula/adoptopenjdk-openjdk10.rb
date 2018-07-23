@@ -4,9 +4,9 @@
 class AdoptopenjdkOpenjdk10 < Formula
   desc "AdoptOpenJDK main binary releases for OpenJDK 10 with HotSpot"
   homepage "https://adoptopenjdk.net/"
-  url "https://github.com/AdoptOpenJDK/openjdk10-releases/releases/download/jdk-10%2B23/OpenJDK10_x64_Mac_jdk-10.23.tar.gz"
-  version "jdk-10+23"
-  sha256 "918b01c1fd7108064c6d45ed3fbea51396ca8b13bdc675bc550e4a53d70dd391"
+  url "https://github.com/AdoptOpenJDK/openjdk10-releases/releases/download/201807101745/OpenJDK10_x64_Mac_201807101745.tar.gz"
+  version "jdk-10.0.1+10"
+  sha256 "a4d9ce9d19961d95f4def0a9d1c7fd5cbd3c83a9d6f7f3c1b37f618bf1cf58c0"
 
   def install
     prefix.install Dir["*"]
