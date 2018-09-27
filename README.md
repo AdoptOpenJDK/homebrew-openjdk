@@ -12,3 +12,4 @@ brew install <version>
 - adoptopenjdk-openjdk8
 - adoptopenjdk-openjdk9
 - adoptopenjdk-openjdk10
+- adoptopenjdk-openjdk11
