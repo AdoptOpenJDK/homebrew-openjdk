@@ -6,7 +6,7 @@ class AdoptopenjdkOpenjdk11 < Formula
   homepage "https://adoptopenjdk.net/"
   url "https://github.com/AdoptOpenJDK/openjdk11-binaries/releases/download/jdk-11%2B28/OpenJDK11-jdk_x64_mac_hotspot_11_28.tar.gz"
   version "jdk-11.28"
-  sha256 "a7ef3669e22497e01fc47b28d7c66de42f0fee52b23302b75649dee239108812"
+  sha256 "809a797d72a78668095913cdb2b39d1cf03ab76d144fd9a660031e4f604165ab"
 
   def install
     prefix.install Dir["*"]
