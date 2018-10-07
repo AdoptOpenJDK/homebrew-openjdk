@@ -11,6 +11,7 @@ class AdoptopenjdkOpenjdk8 < Formula
   def install
     prefix.install Dir["*"]
     ENV.prepend_path "PATH", Formula["adoptopenjdk-openjdk8"].libexec/"bin"
+    opoo "Warning - This brew TAP is being DEPRECATED soon in favour of using brew cask. Please check out https://github.com/AdoptOpenJDK/homebrew-openjdk/blob/master/README.md for more info"
   end
 
   test do
