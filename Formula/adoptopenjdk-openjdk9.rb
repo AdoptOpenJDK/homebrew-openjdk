@@ -4,7 +4,7 @@
 class AdoptopenjdkOpenjdk9 < Formula
   desc "AdoptOpenJDK main binary releases for OpenJDK 9 with HotSpot"
   homepage "https://adoptopenjdk.net/"
-  url "https://github.com/AdoptOpenJDK/openjdk9-binaries/releases/download/jdk-9.0.4%2B11/OpenJDK9U_x64_mac_hotspot_2018-08-08-15-47.tar.gz"
+  url "https://github.com/AdoptOpenJDK/openjdk9-binaries/releases/download/jdk-9.0.4%2B11/OpenJDK9U-jdk_x64_mac_hotspot_2018-08-08-15-47.tar.gz"
   version "jdk-9.0.4+11"
   sha256 "81e393f31cdf71077e433dc94d46c5782be7d0299d20c58abbbb29766bb04dd5"
 
