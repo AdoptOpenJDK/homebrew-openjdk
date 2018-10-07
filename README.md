@@ -1,5 +1,11 @@
 # AdoptOpenJDK - HomeBrew TAP
 
+## THIS BREW TAP IS BEING DEPRECATED!
+
+For the following OpenJDK versions please now use `brew cask`:
+
+-  openjdk11 (`brew cask install adoptopenjdk`)
+
 ## To use:
 
 ```bash
@@ -12,4 +18,3 @@ brew install <version>
 - adoptopenjdk-openjdk8
 - adoptopenjdk-openjdk9
 - adoptopenjdk-openjdk10
-- adoptopenjdk-openjdk11
