@@ -4,7 +4,19 @@
 
 For the following OpenJDK versions please now use `brew cask`:
 
--  openjdk11 (`brew cask install adoptopenjdk`)
+### Latest:
+`brew cask install adoptopenjdk`
+
+### Other Versions:
+```bash
+brew tap homebrew/cask-versions
+brew cask install <version>
+```
+
+#### Versions
+- OpenJDK8 - `adoptopenjdk8`
+
+---
 
 ## To use:
 
@@ -14,7 +26,5 @@ brew install <version>
 ```
 
 ## Versions
-
-- adoptopenjdk-openjdk8
 - adoptopenjdk-openjdk9
 - adoptopenjdk-openjdk10
