@@ -15,6 +15,7 @@ brew cask install <version>
 
 #### Versions
 - OpenJDK8 - `adoptopenjdk8`
+- OpenJDK9 - `adoptopenjdk9`
 
 ---
 
@@ -26,5 +27,4 @@ brew install <version>
 ```
 
 ## Versions
-- adoptopenjdk-openjdk9
 - adoptopenjdk-openjdk10
