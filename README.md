@@ -1,7 +1,5 @@
 # AdoptOpenJDK - HomeBrew TAP
 
-## THIS BREW TAP IS BEING DEPRECATED!
-
 For the following OpenJDK versions please now use `brew cask`:
 
 ### Latest:
@@ -9,7 +7,7 @@ For the following OpenJDK versions please now use `brew cask`:
 
 ### Other Versions:
 ```bash
-brew tap homebrew/cask-versions
+brew tap AdoptOpenJDK/openjdk
 brew cask install <version>
 ```
 
