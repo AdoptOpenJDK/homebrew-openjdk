@@ -1,9 +1,9 @@
 cask 'adoptopenjdk10' do
   version '10,0.2:13'
-  sha256 '5fe24ab7845005c94bddf5f28bd876b63a2a316f7ab757a5d1eddc24e229b7ae'
+  sha256 '550fac840563073dcfaa1ffd4a3a9cc68fd8ccc71bbc65baf3cb32ec734c30dd'
 
   # github.com/AdoptOpenJDK was verified as official when first introduced to the cask
-  url "https://github.com/AdoptOpenJDK/openjdk#{version.before_comma}-releases/releases/download/jdk-#{version.before_comma}.#{version.after_comma.before_colon}%2B#{version.after_colon}/OpenJDK#{version.before_comma}_x64_Mac_jdk-#{version.before_comma}.#{version.after_comma.before_colon}.#{version.after_colon}.tar.gz"
+  url "https://github.com/AdoptOpenJDK/openjdk#{version.before_comma}-binaries/binaries/download/jdk-#{version.before_comma}.#{version.after_comma.before_colon}%2B#{version.after_colon}/OpenJDK#{version.before_comma}_x64_Mac_jdk-#{version.before_comma}.#{version.after_comma.before_colon}.#{version.after_colon}.tar.gz"
   appcast "https://github.com/adoptopenjdk/openjdk#{version.before_comma}-binaries/releases.atom"
   name 'AdoptOpenJDK 10'
   homepage 'https://adoptopenjdk.net/'
