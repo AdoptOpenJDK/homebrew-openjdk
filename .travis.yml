@@ -1,0 +1,23 @@
+language: ruby
+
+matrix:
+  include:
+    - os: osx
+      rvm: system
+
+env:
+  global:
+    - HOMEBREW_DEVELOPER=1
+
+before_install:
+  - brew update || brew update
+  - if [ -f ".git/shallow" ]; then travis_retry git fetch --unshallow; fi
+  - mkdir -p $(brew --repo)/Library/Taps/adoptopenjdk
+  - ln -s $PWD $(brew --repo)/Library/Taps/adoptopenjdk/homebrew-openjdk
+  - ulimit -n 1024
+  # Fix linux error: Incorrect file permissions (664)
+  - chmod 0644 Formula/*.rb
+  - umask 022
+
+script:
+- brew test-bot --no-bottle
