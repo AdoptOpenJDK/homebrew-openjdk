@@ -14,6 +14,7 @@ brew cask install <version>
 #### Versions
 - OpenJDK8 - `adoptopenjdk8`
 - OpenJDK9 - `adoptopenjdk9`
+- OpenJDK10 - `adoptopenjdk10`
 
 ---
 
