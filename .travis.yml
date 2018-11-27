@@ -1,23 +1,53 @@
 language: ruby
 
+sudo: true
+
 matrix:
   include:
     - os: osx
+      osx_image: xcode10
       rvm: system
+  fast_finish: true
 
-env:
-  global:
-    - HOMEBREW_DEVELOPER=1
+branches:
+  only:
+    - master
 
-before_install:
-  - brew update || brew update
-  - if [ -f ".git/shallow" ]; then travis_retry git fetch --unshallow; fi
-  - mkdir -p $(brew --repo)/Library/Taps/adoptopenjdk
-  - ln -s $PWD $(brew --repo)/Library/Taps/adoptopenjdk/homebrew-openjdk
-  - ulimit -n 1024
-  # Fix linux error: Incorrect file permissions (664)
-  - chmod 0644 Formula/*.rb
-  - umask 022
+cache:
+  directories:
+    - /usr/local/Homebrew/Library/Homebrew/vendor/bundle
+    - /usr/local/Homebrew/Library/Homebrew/vendor/portable-ruby
 
-script:
-- brew test-bot --no-bottle
+install:
+  - |
+    # Force strict error checking.
+    set -o errexit
+    set -o pipefail
+  - |
+    # Update Travis commit range.
+    # This is not normally required but does prevent problems with outdated forks and
+    # deleted casks (see https://github.com/Homebrew/homebrew-cask/pull/43164).
+    BRANCH_COMMIT="${TRAVIS_COMMIT_RANGE##*.}"
+    TARGET_COMMIT="${TRAVIS_COMMIT_RANGE%%.*}"
+    if ! MERGE_BASE="$(git merge-base "${BRANCH_COMMIT}" "${TARGET_COMMIT}" 2>/dev/null)"; then
+      git fetch --unshallow
+      MERGE_BASE="$(git merge-base "${BRANCH_COMMIT}" "${TARGET_COMMIT}")"
+    fi
+    export TRAVIS_COMMIT_RANGE="${MERGE_BASE}...${BRANCH_COMMIT}"
+  - |
+    # Switch to master branch.
+    export HOMEBREW_COLOR=1
+    export HOMEBREW_DEVELOPER=1
+    export HOMEBREW_NO_AUTO_UPDATE=1
+    brew update
+  - |
+    # Mirror the repo as a tap.
+    TAP_DIR="$(brew --repository)/Library/Taps/${TRAVIS_REPO_SLUG}"
+    mkdir -p "${TAP_DIR}"
+    rsync -az --delete "${TRAVIS_BUILD_DIR}/" "${TAP_DIR}/"
+    export TRAVIS_BUILD_DIR="${TAP_DIR}"
+    builtin cd "${TRAVIS_BUILD_DIR}"
+script: brew cask ci
+
+notifications:
+email: false
