@@ -65,11 +65,4 @@ cask 'adoptopenjdk11' do
   end
 
   uninstall delete: "/Library/Java/JavaVirtualMachines/adoptopenjdk-#{version.before_comma}.jdk"
-
-  caveats <<~EOS
-    More versions are available in the AdoptOpenJDK tap:
-      #{Formatter.url('https://github.com/AdoptOpenJDK/homebrew-openjdk')}
-
-      brew tap adoptopenjdk/openjdk
-  EOS
 end
