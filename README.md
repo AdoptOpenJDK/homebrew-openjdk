@@ -15,4 +15,3 @@ brew cask install <version>
 - OpenJDK8 - `adoptopenjdk8`
 - OpenJDK9 - `adoptopenjdk9`
 - OpenJDK10 - `adoptopenjdk10`
-- OpenJDK11 - `adoptopenjdk11`
