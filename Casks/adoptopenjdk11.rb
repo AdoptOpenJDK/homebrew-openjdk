@@ -1,5 +1,5 @@
 cask 'adoptopenjdk11' do
-  version '11.0.1,13'
+  version '11.0.2,7'
   sha256 'e219e7e2d586ed09ae65f4ec390fca5d5f0c37a61b47677648610194daf1aaa7'
 
   # github.com/AdoptOpenJDK was verified as official when first introduced to the cask
