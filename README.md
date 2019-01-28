@@ -16,4 +16,5 @@ brew cask install <version>
 - OpenJDK9 - `adoptopenjdk9`
 - OpenJDK10 - `adoptopenjdk10`
 - OpenJDK11 - `adoptopenjdk11`
-- OpenJDK11 w/ OpenJ9 JVM - `adoptopenjdk11-openj9`
+- OpenJDK11, JRE only - `adoptopenjdk11-jre`
+- OpenJDK11, with OpenJ9 JVM - `adoptopenjdk11-openj9`
