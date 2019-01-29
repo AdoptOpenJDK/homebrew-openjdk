@@ -17,7 +17,7 @@ cask 'adoptopenjdk8-jre' do
                    sudo: true
 
     system_command '/bin/mkdir',
-                   args: ['-p', '--', '/Library/Java/JavaVirtualMachines/adoptopenjdk-8.jdk/Contents/Home/bundle/Libraries'],
+                   args: ['-p', '--', '/Library/Java/JavaVirtualMachines/adoptopenjdk-8.jre/Contents/Home/bundle/Libraries'],
                    sudo: true
 
     system_command '/bin/ln',
