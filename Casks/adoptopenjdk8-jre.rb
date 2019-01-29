@@ -32,7 +32,7 @@ cask 'adoptopenjdk8-jre' do
                    sudo: true
 
     system_command '/usr/libexec/PlistBuddy',
-                   args: ['-c', "Set :CFBundleIdentifier net.adoptopenjdk.#{version.before_comma}.jdk", "/Library/Java/JavaVirtualMachines/adoptopenjdk-#{version.before_comma}.jre/Contents/Info.plist"],
+                   args: ['-c', "Set :CFBundleIdentifier net.adoptopenjdk.#{version.before_comma}.jre", "/Library/Java/JavaVirtualMachines/adoptopenjdk-#{version.before_comma}.jre/Contents/Info.plist"],
                    sudo: true
 
     system_command '/usr/libexec/PlistBuddy',
