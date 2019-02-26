@@ -11,7 +11,7 @@ cask 'adoptopenjdk11-openj9' do
   postflight do
     system_command '/bin/mv',
                    args: [
-                           '-f', '--', "#{staged_path}/jdk-#{version.before_comma}+#{version.after_comma}",
+                           '-f', '--', "#{staged_path}/jdk-#{version.before_comma}+#{version.after_comma}_openj9-0.12.1",
                            "/Library/Java/JavaVirtualMachines/adoptopenjdk-#{version.before_comma}-openj9.jdk"
                          ],
                    sudo: true
