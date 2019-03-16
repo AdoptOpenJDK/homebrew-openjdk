@@ -11,7 +11,7 @@ cask 'adoptopenjdk11-jre' do
   postflight do
     system_command '/bin/mv',
                    args: [
-                           '-f', '--', "#{staged_path}/jdk-#{version.before_comma}+#{version.after_colon}-jre",
+                           '-f', '--', "#{staged_path}/jdk-#{version.before_comma}.#{version.after_comma.before_colon}+#{version.after_colon}-jre",
                            "/Library/Java/JavaVirtualMachines/adoptopenjdk-#{version.before_comma}.jre"
                          ],
                    sudo: true
@@ -53,7 +53,7 @@ cask 'adoptopenjdk11-jre' do
 
     system_command '/usr/libexec/PlistBuddy',
                    args: [
-                           '-c', "Set :JavaVM:JVMPlatformVersion #{version.before_comma}.#{version.after_comma.before_colon}+#{version.after_colon}",
+                           '-c', "Set :JavaVM:JVMPlatformVersion #{version.before_comma}.#{version.after_comma.before_colon}",
                            "/Library/Java/JavaVirtualMachines/adoptopenjdk-#{version.before_comma}.jre/Contents/Info.plist"
                          ],
                    sudo: true
