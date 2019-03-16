@@ -11,7 +11,7 @@ cask 'adoptopenjdk11-openj9' do
   postflight do
     system_command '/bin/mv',
                    args: [
-                           '-f', '--', "#{staged_path}/jdk-#{version.before_comma}+#{version.after_colon}_openj9-0.12.1",
+                           '-f', '--', "#{staged_path}/jdk-#{version.before_comma}.#{version.after_comma.before_colon}+#{version.after_colon}",
                            "/Library/Java/JavaVirtualMachines/adoptopenjdk-#{version.before_comma}-openj9.jdk"
                          ],
                    sudo: true
@@ -53,7 +53,7 @@ cask 'adoptopenjdk11-openj9' do
 
     system_command '/usr/libexec/PlistBuddy',
                    args: [
-                           '-c', "Set :JavaVM:JVMPlatformVersion #{version.before_comma}.#{version.after_comma.before_colon}+#{version.after_colon}",
+                           '-c', "Set :JavaVM:JVMPlatformVersion #{version.before_comma}.#{version.after_comma.before_colon}",
                            "/Library/Java/JavaVirtualMachines/adoptopenjdk-#{version.before_comma}-openj9.jdk/Contents/Info.plist"
                          ],
                    sudo: true
@@ -61,20 +61,6 @@ cask 'adoptopenjdk11-openj9' do
     system_command '/usr/libexec/PlistBuddy',
                    args: [
                            '-c', 'Set :JavaVM:JVMVendor AdoptOpenJDK',
-                           "/Library/Java/JavaVirtualMachines/adoptopenjdk-#{version.before_comma}-openj9.jdk/Contents/Info.plist"
-                         ],
-                   sudo: true
-
-    system_command '/usr/libexec/PlistBuddy',
-                   args: [
-                           '-c', 'Add :JavaVM:JVMCapabilities array',
-                           "/Library/Java/JavaVirtualMachines/adoptopenjdk-#{version.before_comma}-openj9.jdk/Contents/Info.plist"
-                         ],
-                   sudo: true
-
-    system_command '/usr/libexec/PlistBuddy',
-                   args: [
-                           '-c', 'Add :JavaVM:JVMCapabilities:0 string CommandLine',
                            "/Library/Java/JavaVirtualMachines/adoptopenjdk-#{version.before_comma}-openj9.jdk/Contents/Info.plist"
                          ],
                    sudo: true
