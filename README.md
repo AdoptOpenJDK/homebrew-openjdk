@@ -17,6 +17,6 @@ brew cask install <version>
 | OpenJDK8 with Hotspot JVM | `adoptopenjdk8` | `adoptopenjdk8-jre` |
 | OpenJDK8 with OpenJ9 JVM | `adoptopenjdk8-openj9` | `adoptopenjdk8-openj9-jre` |
 | OpenJDK9 with Hotspot JVM | `adoptopenjdk9` | n/a |
-| OpenJDK10 with Hotspot JVM | `adoptopenjdk10` | n/a |
+| OpenJDK10 with Hotspot JVM | `adoptopenjdk10` | `adoptopenjdk10-jre` |
 | OpenJDK11 with Hotspot JVM | `adoptopenjdk11` | `adoptopenjdk11-jre` |
 | OpenJDK11 with OpenJ9 JVM | `adoptopenjdk11-openj9` | `adoptopenjdk11-openj9-jre` |
