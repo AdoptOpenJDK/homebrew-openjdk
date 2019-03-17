@@ -19,4 +19,4 @@ brew cask install <version>
 | OpenJDK9 with Hotspot JVM | `adoptopenjdk9` | n/a |
 | OpenJDK10 with Hotspot JVM | `adoptopenjdk10` | n/a |
 | OpenJDK11 with Hotspot JVM | `adoptopenjdk11` | `adoptopenjdk11-jre` |
-| OpenJDK11 with OpenJ9 JVM | `adoptopenjdk11-openj9` | n/a |
+| OpenJDK11 with OpenJ9 JVM | `adoptopenjdk11-openj9` | `adoptopenjdk11-openj9-jre` |
