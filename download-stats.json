@@ -1,0 +1,47 @@
+[
+    {
+        "name": "adoptopenjdk8",
+        "download_count": 8628,
+        "rank": 81
+    },
+    {
+        "name": "adoptopenjdk11",
+        "download_count": 1584,
+        "rank": 324
+    },
+    {
+        "name": "adoptopenjdk9",
+        "download_count": 559,
+        "rank": 635
+    },
+    {
+        "name": "adoptopenjdk10",
+        "download_count": 526,
+        "rank": 654
+    },
+    {
+        "name": "adoptopenjdk11-openj9",
+        "download_count": 89,
+        "rank": 1833
+    },
+    {
+        "name": "adoptopenjdk8-jre",
+        "download_count": 36,
+        "rank": 2705
+    },
+    {
+        "name": "adoptopenjdk8-openj9",
+        "download_count": 33,
+        "rank": 2804
+    },
+    {
+        "name": "adoptopenjdk11-jre",
+        "download_count": 27,
+        "rank": 3032
+    },
+    {
+        "name": "adoptopenjdk8-openj9-jre",
+        "download_count": 6,
+        "rank": 4896
+    }
+]
