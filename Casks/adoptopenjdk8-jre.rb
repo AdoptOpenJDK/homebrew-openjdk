@@ -8,7 +8,7 @@ cask 'adoptopenjdk8-jre' do
   name 'AdoptOpenJDK 8'
   homepage 'https://adoptopenjdk.net/'
 
-  pkg 'jdk8u212-b03/OpenJDK8U-jre_x64_mac_hotspot_8u212b03.pkg'
+  pkg 'OpenJDK8U-jre_x64_mac_hotspot_8u212b03.pkg'
 
   uninstall pkgutil: [
                        "net.adoptopenjdk.#{version.before_comma}.jre",
