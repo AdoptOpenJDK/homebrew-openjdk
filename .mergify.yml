@@ -5,4 +5,4 @@ pull_request_rules:
       - "#approved-reviews-by>=1"
     actions:
       merge:
-        method: merge
+        method: squash
