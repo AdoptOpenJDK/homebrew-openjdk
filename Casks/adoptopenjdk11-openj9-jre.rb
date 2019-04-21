@@ -1,9 +1,9 @@
 cask 'adoptopenjdk11-openj9-jre' do
-  version '11,0.2:9'
-  sha256 '40d70bf570b2098b381b77ae62dfddfb8cf6fc500ed539d82b78405593a9c9e5'
+  version '11,0.3:7'
+  sha256 '150c4065a57ec368b692276e8e3320b183ee17b402b7db07e676dff5837f0c52'
 
   # github.com/AdoptOpenJDK was verified as official when first introduced to the cask
-  url "https://github.com/AdoptOpenJDK/openjdk11-binaries/releases/download/jdk-#{version.before_comma}.#{version.after_comma.before_colon}%2B#{version.after_colon}/OpenJDK11U-jre_x64_mac_openj9_#{version.before_comma}.#{version.after_comma.before_colon}_#{version.after_colon}_openj9-0.12.0.tar.gz"
+  url "https://github.com/AdoptOpenJDK/openjdk11-binaries/releases/download/jdk-#{version.before_comma}.#{version.after_comma.before_colon}%2B#{version.after_colon}_openj9-0.14.0/OpenJDK11U-jre_x64_mac_openj9_#{version.before_comma}.#{version.after_comma.before_colon}_#{version.after_colon}_openj9-0.14.0.tar.gz"
   appcast 'https://github.com/adoptopenjdk/openjdk11-binaries/releases.atom'
   name 'AdoptOpenJDK 11 (OpenJ9 JRE)'
   homepage 'https://adoptopenjdk.net/'
