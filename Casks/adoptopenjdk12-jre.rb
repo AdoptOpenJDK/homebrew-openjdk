@@ -1,16 +1,14 @@
 cask 'adoptopenjdk12-jre' do
-  version '12,33'
-  sha256 '1080b43328b8b21a2eb8b89d387f9a65cb9c7cbe4fc117dadd6e63256a9cac01'
+  version '12.0.1+12'
+  sha256 '47a536ff11faa18759d6178ae2df49d1b37394d85f25570f6b72a09571d37cb2'
 
   # github.com/AdoptOpenJDK was verified as official when first introduced to the cask
-  url "https://github.com/AdoptOpenJDK/openjdk#{version.before_comma}-binaries/releases/download/jdk-#{version.before_comma}+#{version.after_comma.before_colon}/OpenJDK#{version.before_comma}U-jre_x64_mac_hotspot_#{version.before_comma}_#{version.after_comma.before_colon}#{version.after_colon}.pkg"
-  appcast "https://github.com/adoptopenjdk/openjdk#{version.before_comma}-binaries/releases.atom"
+  url 'https://github.com/AdoptOpenJDK/openjdk12-binaries/releases/download/jdk-12.0.1%2B12/OpenJDK12U-jre_x64_mac_hotspot_12.0.1_12.pkg'
+  appcast 'https://github.com/adoptopenjdk/openjdk12-binaries/releases.atom'
   name 'AdoptOpenJDK 12 (JRE)'
   homepage 'https://adoptopenjdk.net/'
 
-  pkg "OpenJDK#{version.before_comma}U-jre_x64_mac_hotspot_#{version.before_comma}_#{version.after_comma.before_colon}#{version.after_colon}.pkg"
+  pkg 'OpenJDK12U-jre_x64_mac_hotspot_12.0.1_12.pkg'
 
-  uninstall pkgutil: [
-                       "net.adoptopenjdk.#{version.before_comma}.jre",
-                     ]
+  uninstall pkgutil: 'net.adoptopenjdk.12.jre'
 end
