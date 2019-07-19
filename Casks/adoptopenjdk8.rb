@@ -1,9 +1,9 @@
 cask 'adoptopenjdk8' do
-  version '8,212:b04'
-  sha256 '20c4d9d3c0b10c21f781ba3a723683c70805e61939f908522cbce76e6e1ed2af'
+  version '8,222:b10'
+  sha256 '9605fd00d2960934422437f601c7a9a1c5537309b9199d5bc75f84f20cd29a76'
 
   # github.com/AdoptOpenJDK was verified as official when first introduced to the cask
-  url 'https://github.com/AdoptOpenJDK/openjdk8-binaries/releases/download/jdk8u212-b04/OpenJDK8U-jdk_x64_mac_hotspot_8u212b04.pkg'
+  url 'https://github.com/AdoptOpenJDK/openjdk8-binaries/releases/download/jdk8u222-b10/OpenJDK8U-jdk_x64_mac_hotspot_8u222b10.pkg'
   appcast "https://github.com/adoptopenjdk/openjdk#{version.before_comma}-binaries/releases.atom"
   name 'AdoptOpenJDK 8'
   homepage 'https://adoptopenjdk.net/'
