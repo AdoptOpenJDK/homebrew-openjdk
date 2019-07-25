@@ -10,5 +10,5 @@ cask 'adoptopenjdk11' do
 
   pkg 'OpenJDK11U-jdk_x64_mac_hotspot_11.0.4_11.pkg'
 
-  uninstall pkgutil: "net.adoptopenjdk.#{version.before_comma}.jdk"
+  uninstall pkgutil: "net.adoptopenjdk.#{version.major}.jdk"
 end

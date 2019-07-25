@@ -10,5 +10,5 @@ cask 'adoptopenjdk12-openj9-jre' do
 
   pkg 'OpenJDK12U-jre_x64_mac_openj9_12.0.2_10_openj9-0.15.1.pkg'
 
-  uninstall pkgutil: 'net.adoptopenjdk.12-openj9.jre'
+  uninstall pkgutil: "net.adoptopenjdk.#{version.major}-openj9.jre"
 end
