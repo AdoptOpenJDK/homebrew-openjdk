@@ -1,11 +1,11 @@
 cask 'adoptopenjdk12-openj9-large' do
   version '12.0.2,10'
-  sha256 'f5f2e4ce96442e81af4fce08050d4bf7a97148d861fb798183ae7337fda9bdb8'
+  sha256 'ab8456a3784edadcf3ff4d20f7482218648b8ec1a70ab5164a25ba9030abc1fc'
 
   # github.com/AdoptOpenJDK was verified as official when first introduced to the cask
-  url 'https://github.com/AdoptOpenJDK/openjdk12-binaries/releases/download/jdk-12.0.2%2B10_openj9-0.15.1/OpenJDK12U-jdk_x64_mac_openj9_macosXL_12.0.2_10_openj9-0.15.1.pkg'
+  url 'https://github.com/AdoptOpenJDK/openjdk12-binaries/releases/download/jdk-12.0.2%2B10.2_openj9-0.15.1/OpenJDK12U-jdk_x64_mac_openj9_macosXL_12.0.2_10_openj9-0.15.1.pkg'
   appcast "https://github.com/AdoptOpenJDK/openjdk#{version.major}-binaries/releases/latest"
-  name 'AdoptOpenJDK 12 (OpenJ9)'
+  name 'AdoptOpenJDK 12 (OpenJ9) (XL)'
   homepage 'https://adoptopenjdk.net/'
 
   pkg 'OpenJDK12U-jdk_x64_mac_openj9_macosXL_12.0.2_10_openj9-0.15.1.pkg'
