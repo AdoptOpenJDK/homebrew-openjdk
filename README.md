@@ -25,3 +25,6 @@ brew cask install <version>
 | OpenJDK12 with Hotspot JVM | `adoptopenjdk12` | `adoptopenjdk12-jre` |
 | OpenJDK12 with OpenJ9 JVM | `adoptopenjdk12-openj9` | `adoptopenjdk12-openj9-jre` |
 | OpenJDK12 with OpenJ9 JVM, large heap | `adoptopenjdk12-openj9-large` | `adoptopenjdk12-openj9-jre-large` |
+| OpenJDK13 with Hotspot JVM | `adoptopenjdk13` | `adoptopenjdk13-jre` |
+| OpenJDK13 with OpenJ9 JVM | `adoptopenjdk13-openj9` | `adoptopenjdk13-openj9-jre` |
+| OpenJDK13 with OpenJ9 JVM, large heap | `adoptopenjdk13-openj9-large` | `adoptopenjdk13-openj9-jre-large` |
