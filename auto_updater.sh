@@ -69,7 +69,7 @@ function update_casks {
 
           git add $filename
           git commit -m "update $filename to $api_version"
-          git push fork "$version-$jvm_impl-$type-$heap" || git push -f fork "$version-$jvm_impl-$type-$heap"
+          git push -f fork "$version-$jvm_impl-$type-$heap"
           hub pull-request --base adoptopenjdk:master --head "$version-$jvm_impl-$type-$heap" -m "update $filename to $api_version"
         fi
     esac
