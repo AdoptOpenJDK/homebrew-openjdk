@@ -1,14 +1,14 @@
 cask 'adoptopenjdk11-openj9-large' do
-  version '11.0.4,11'
-  sha256 '87d2f460daeff88fd9c0c896578d358f49d0c87e3238abb22b289b5df1bd00e7'
+  version '11.0.5,10'
+  sha256 'cc5d6d00bba136a469826aa599cbd8120516470945c3e36357ace79485c5bfa2'
 
   # github.com/AdoptOpenJDK was verified as official when first introduced to the cask
-  url 'https://github.com/AdoptOpenJDK/openjdk11-binaries/releases/download/jdk-11.0.4%2B11.4_openj9-0.15.1/OpenJDK11U-jdk_x64_mac_openj9_macosXL_11.0.4_11_openj9-0.15.1.pkg'
+  url 'https://github.com/AdoptOpenJDK/openjdk11-binaries/releases/download/jdk-11.0.5%2B10_openj9-0.17.0/OpenJDK11U-jdk_x64_mac_openj9_macosXL_11.0.5_10_openj9-0.17.0.pkg'
   appcast "https://github.com/AdoptOpenJDK/openjdk#{version.major}-binaries/releases/latest"
   name 'AdoptOpenJDK 11 (OpenJ9) (XL)'
   homepage 'https://adoptopenjdk.net/'
 
-  pkg 'OpenJDK11U-jdk_x64_mac_openj9_macosXL_11.0.4_11_openj9-0.15.1.pkg'
+  pkg 'OpenJDK11U-jdk_x64_mac_openj9_macosXL_11.0.5_10_openj9-0.17.0.pkg'
 
   uninstall pkgutil: "net.adoptopenjdk.#{version.major}-openj9.jdk"
 end
