@@ -1,14 +1,14 @@
 cask 'adoptopenjdk13-jre' do
-  version ''
-  sha256 ''
+  version '1'
+  sha256 '1234'
 
   # github.com/AdoptOpenJDK was verified as official when first introduced to the cask
-  url ''
+  url 'https://url'
   appcast "https://github.com/AdoptOpenJDK/openjdk#{version.major}-binaries/releases/latest"
   name 'AdoptOpenJDK 13 (JRE)'
   homepage 'https://adoptopenjdk.net/'
 
-  pkg ''
+  pkg 'fake.pkg'
 
   uninstall pkgutil: "net.adoptopenjdk.#{version.major}.jre"
 end
