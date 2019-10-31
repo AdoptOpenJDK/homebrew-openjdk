@@ -51,32 +51,36 @@ function update_casks {
           echo "Updating $filename"
           cask_sha256=$(cat $filename | grep 'sha256 ' | awk '{print $2}' | tr -d "'")
           api_sha256_link=$(echo $api_latest | grep -Eo '"installer_checksum_link":(\s+\S+){1}' | awk '{print $2}' | sed 's/,*$//g' | tr -d '"')
-          api_sha256=$(curl -L --silent $api_sha256_link | awk '{print $1}')
-
-          cask_installer_name=$(cat $filename | grep 'pkg ' | awk '{print $2}' | tr -d "'")
-          api_installer_name=$(echo $api_latest | grep -Eo '"installer_name":(\s+\S+){1}' | awk '{print $2}' | sed 's/,*$//g' | tr -d '"')
-          cask_version=$(cat $filename | grep 'version ' | awk '{print $2}' | tr -d "'")
-
-          if [ $version == "openjdk8" ]; then
-            minor=$(echo $api_latest | grep -Eo '"semver":(\s+\S+){1}' | awk '{print $2}' | cut -f1 -d"-" | cut -f2- -d'u')
-            build=$(echo $api_latest | grep -Eo '"semver":(\s+\S+){1}' | awk '{print $2}' | cut -f1 -d"," | cut -f2- -d'-')
-            api_version="8,$minor:$build"
+          if [ -z $api_sha256_link ]; then
+            echo "Skipping because no pkg available"
           else
-            api_version=$(echo $api_latest | grep -Eo '"openjdk_version":(\s+\S+){1}' | awk '{print $2}' | sed 's/,*$//g' | tr -d '"' | sed 's/+/,/g')
+            api_sha256=$(curl -L --silent $api_sha256_link | awk '{print $1}')
+
+            cask_installer_name=$(cat $filename | grep 'pkg ' | awk '{print $2}' | tr -d "'")
+            api_installer_name=$(echo $api_latest | grep -Eo '"installer_name":(\s+\S+){1}' | awk '{print $2}' | sed 's/,*$//g' | tr -d '"')
+            cask_version=$(cat $filename | grep 'version ' | awk '{print $2}' | tr -d "'")
+
+            if [ $version == "openjdk8" ]; then
+              minor=$(echo $api_latest | grep -Eo '"openjdk_version":(\s+\S+){1}' | awk '{print $2}' | cut -f1 -d"-" | cut -f2- -d'u')
+              build=$(echo $api_latest | grep -Eo '"openjdk_version":(\s+\S+){1}' | awk '{print $2}' | cut -f1 -d"," | cut -f2- -d'-' | tr -d '"')
+              api_version="8,$minor:$build"
+            else
+              api_version=$(echo $api_latest | grep -Eo '"semver":(\s+\S+){1}' | awk '{print $2}' | sed 's/,*$//g' | tr -d '"' | sed 's/+/,/g')
+            fi
+
+            git checkout "$version-$jvm_impl-$type-$heap" || git checkout -b "$version-$jvm_impl-$type-$heap"
+            git reset --hard upstream/master
+
+            sed -i "s@${cask_url}@${api_url}@g" $filename
+            sed -i "s@${cask_sha256}@${api_sha256}@g" $filename
+            sed -i "s@${cask_installer_name}@${api_installer_name}@g" $filename
+            sed -i "s@${cask_version}@${api_version}@g" $filename
+
+            git add $filename
+            git commit -m "update $filename to $api_version"
+            git push -f fork "$version-$jvm_impl-$type-$heap"
+            hub pull-request --base adoptopenjdk:master --head "$version-$jvm_impl-$type-$heap" -m "update $filename to $api_version"
           fi
-
-          git checkout "$version-$jvm_impl-$type-$heap" || git checkout -b "$version-$jvm_impl-$type-$heap"
-          git reset --hard upstream/master
-
-          sed -i "s@${cask_url}@${api_url}@g" $filename
-          sed -i "s@${cask_sha256}@${api_sha256}@g" $filename
-          sed -i "s@${cask_installer_name}@${api_installer_name}@g" $filename
-          sed -i "s@${cask_version}@${api_version}@g" $filename
-
-          git add $filename
-          git commit -m "update $filename to $api_version"
-          git push -f fork "$version-$jvm_impl-$type-$heap"
-          hub pull-request --base adoptopenjdk:master --head "$version-$jvm_impl-$type-$heap" -m "update $filename to $api_version"
         fi
     esac
   done
