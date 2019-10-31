@@ -55,9 +55,15 @@ function update_casks {
 
           cask_installer_name=$(cat $filename | grep 'pkg ' | awk '{print $2}' | tr -d "'")
           api_installer_name=$(echo $api_latest | grep -Eo '"installer_name":(\s+\S+){1}' | awk '{print $2}' | sed 's/,*$//g' | tr -d '"')
-
           cask_version=$(cat $filename | grep 'version ' | awk '{print $2}' | tr -d "'")
-          api_version=$(echo $api_latest | grep -Eo '"semver":(\s+\S+){1}' | awk '{print $2}' | sed 's/,*$//g' | tr -d '"' | sed 's/+/,/g')
+
+          if [ $version == "openjdk8" ]; then
+            minor=$(echo $api_latest | grep -Eo '"semver":(\s+\S+){1}' | awk '{print $2}' | cut -f1 -d"-" | cut -f2- -d'u')
+            build=$(echo $api_latest | grep -Eo '"semver":(\s+\S+){1}' | awk '{print $2}' | cut -f1 -d"," | cut -f2- -d'-')
+            api_version="8,$minor:$build"
+          else
+            api_version=$(echo $api_latest | grep -Eo '"openjdk_version":(\s+\S+){1}' | awk '{print $2}' | sed 's/,*$//g' | tr -d '"' | sed 's/+/,/g')
+          fi
 
           git checkout "$version-$jvm_impl-$type-$heap" || git checkout -b "$version-$jvm_impl-$type-$heap"
           git reset --hard upstream/master
