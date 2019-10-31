@@ -1,8 +1,13 @@
 pull_request_rules:
   - name: automatic merge on CI success and review
     conditions:
-      - status-success=continuous-integration/travis-ci/pr
+      - status-success=Travis CI - Pull Request
       - "#approved-reviews-by>=1"
     actions:
       merge:
         method: squash
+  - name: delete head branch on merged pull requests
+    conditions:
+      - merged
+    actions:
+      delete_head_branch:
