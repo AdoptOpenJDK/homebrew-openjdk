@@ -12,4 +12,3 @@ cask 'adoptopenjdk13-openj9-jre' do
 
   uninstall pkgutil: "net.adoptopenjdk.#{version.major}-openj9.jre"
 end
-s
