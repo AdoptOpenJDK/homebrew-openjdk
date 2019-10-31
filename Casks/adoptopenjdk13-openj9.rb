@@ -1,6 +1,6 @@
 cask 'adoptopenjdk13-openj9' do
-  version ''
-  sha256 ''
+  version '13.0.0.0'
+  sha256 '1234'
 
   # github.com/AdoptOpenJDK was verified as official when first introduced to the cask
   url 'https://url'

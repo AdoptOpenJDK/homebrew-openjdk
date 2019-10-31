@@ -1,5 +1,5 @@
 cask 'adoptopenjdk13-jre' do
-  version '1'
+  version '13.0.0,0'
   sha256 '1234'
 
   # github.com/AdoptOpenJDK was verified as official when first introduced to the cask
