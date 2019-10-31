@@ -1,6 +1,6 @@
 # AdoptOpenJDK - HomeBrew TAP
 
-[![Build Status](https://travis-ci.org/AdoptOpenJDK/homebrew-openjdk.svg?branch=master)](https://travis-ci.org/AdoptOpenJDK/homebrew-openjdk)
+[![Build Status](https://travis-ci.com/AdoptOpenJDK/homebrew-openjdk.svg?branch=master)](https://travis-ci.com/AdoptOpenJDK/homebrew-openjdk)
 
 ### Latest:
 `brew cask install adoptopenjdk`
