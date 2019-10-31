@@ -1,14 +1,14 @@
 cask 'adoptopenjdk8-openj9-jre-large' do
-  version '8,222:b10'
-  sha256 'd5a2203a169ed40a19177072ad2f4f62e2d694b3df108b87d6c146ff8744b71c'
+  version '8,"8.0.232+9",:"8.0.232+9"'
+  sha256 '303f305e234fc25ef86c9be9a85b6707b48a2f8aa46ed3a89706992b800788f8'
 
   # github.com/AdoptOpenJDK was verified as official when first introduced to the cask
-  url 'https://github.com/AdoptOpenJDK/openjdk8-binaries/releases/download/jdk8u222-b10_openj9-0.15.1/OpenJDK8U-jre_x64_mac_openj9_macosXL_8u222b10_openj9-0.15.1.pkg'
+  url 'https://github.com/AdoptOpenJDK/openjdk8-binaries/releases/download/jdk8u232-b09_openj9-0.17.0/OpenJDK8U-jre_x64_mac_openj9_macosXL_8u232b09_openj9-0.17.0.pkg'
   appcast "https://github.com/adoptopenjdk/openjdk#{version.before_comma}-binaries/releases/latest"
   name 'AdoptOpenJDK 8'
   homepage 'https://adoptopenjdk.net/'
 
-  pkg 'OpenJDK8U-jre_x64_mac_openj9_macosXL_8u222b10_openj9-0.15.1.pkg'
+  pkg 'OpenJDK8U-jre_x64_mac_openj9_macosXL_8u232b09_openj9-0.17.0.pkg'
 
   uninstall pkgutil: [
                        "net.adoptopenjdk.#{version.before_comma}-openj9.jre",
