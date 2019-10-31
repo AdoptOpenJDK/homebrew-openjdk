@@ -22,7 +22,7 @@ function check_hub {
 }
 
 function update_casks {
-  for filename in *.rb; do
+  for filename in adoptopenjdk*.rb; do
     echo "Checking $filename"
     case $filename in
       *openj9*) jvm_impl="openj9" ;;
@@ -44,7 +44,7 @@ function update_casks {
     cask_url=$(cat $filename | grep 'url ' | awk '{print $2}' | tr -d "'")
     case $cask_url in
       *.tar.gz*) echo "detected a tar.gz, skipping!" ;;
-      *.pkg*)
+      *)
         api_latest=$(curl --silent "https://api.adoptopenjdk.net/v2/latestAssets/releases/$version?openjdk_impl=$jvm_impl&os=mac&arch=x64&release=latest&type=$type&heap_size=$heap")
         api_url=$(echo $api_latest | grep -Eo '"installer_link":(\s+\S+){1}' | awk '{print $2}' | sed 's/,*$//g' | tr -d '"')
         if [ "$api_url" != "$cask_url" ]; then
