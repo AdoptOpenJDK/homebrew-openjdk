@@ -1,5 +1,17 @@
 #!/bin/bash set -eu
 
+PUSH=
+
+for i in "$@"
+do
+case $i in
+    # Perform all git commands, Do not use locally
+    --push)
+      PUSH="true"
+    ;;
+esac
+done
+
 function check_fork {
   git ls-remote --exit-code fork > /dev/null 2>&1
   if test $? = 1; then
@@ -22,6 +34,13 @@ function check_hub {
 }
 
 function update_casks {
+  cd Casks
+
+  if [ "$PUSH" == "true" ]; then
+    git fetch --all
+    git reset --hard upstream/master
+  fi
+
   for filename in adoptopenjdk*.rb; do
     echo "Checking $filename"
     case $filename in
@@ -64,35 +83,64 @@ function update_casks {
               minor=$(echo $api_latest | grep -Eo '"openjdk_version":(\s+\S+){1}' | awk '{print $2}' | cut -f1 -d"-" | cut -f2- -d'u')
               build=$(echo $api_latest | grep -Eo '"openjdk_version":(\s+\S+){1}' | awk '{print $2}' | cut -f1 -d"," | cut -f2- -d'-' | tr -d '"')
               api_version="8,$minor:$build"
+              uninstall="net.adoptopenjdk.#{version.before_comma}"
+              appcast="https://github.com/adoptopenjdk/openjdk#{version.before_comma}-binaries/releases/latest"
             else
               api_version=$(echo $api_latest | grep -Eo '"semver":(\s+\S+){1}' | awk '{print $2}' | sed 's/,*$//g' | tr -d '"' | sed 's/+/,/g')
+              uninstall="net.adoptopenjdk.#{version.major}"
+              appcast="https://github.com/AdoptOpenJDK/openjdk#{version.major}-binaries/releases/latest"
             fi
 
-            git checkout "$version-$jvm_impl-$type-$heap" || git checkout -b "$version-$jvm_impl-$type-$heap"
-            git reset --hard upstream/master
+            if [ "$PUSH" == "true" ]; then
+              git checkout "$version-$jvm_impl-$type-$heap" || git checkout -b "$version-$jvm_impl-$type-$heap"
+              git reset --hard upstream/master
+            fi
 
-            sed -i "s@${cask_url}@${api_url}@g" $filename
-            sed -i "s@${cask_sha256}@${api_sha256}@g" $filename
-            sed -i "s@${cask_installer_name}@${api_installer_name}@g" $filename
-            sed -i "s@${cask_version}@${api_version}@g" $filename
+            name="AdoptOpenJDK ${version//[!0-9]/}"
 
-            git add $filename
-            git commit -m "update $filename to $api_version"
-            git push -f fork "$version-$jvm_impl-$type-$heap"
-            hub pull-request --base adoptopenjdk:master --head "$version-$jvm_impl-$type-$heap" -m "update $filename to $api_version"
+            if [ "$jvm_impl" == "openj9" ]; then
+              name+=" (OpenJ9)"
+              uninstall+="-openj9"
+            fi
+
+            if [ "$type" == "jre" ]; then
+              name+=" (JRE)"
+              uninstall+=".jre"
+            else 
+              uninstall+=".jdk"
+            fi
+
+            if [ "$heap" == "large" ]; then
+              name+=" (XL)"
+            fi
+
+            cat ../Templates/adoptopenjdk.rb.tmpl  \
+            | sed -E "s/\\{cask_name\\}/${filename%.*}/g" \
+            | sed -E "s/\\{version_number\\}/$api_version/g" \
+            | sed -E "s/\\{shasum\\}/$api_sha256/g" \
+            | sed -E "s|\\{cask_url\\}|$api_url|g" \
+            | sed -E "s|\\{appcast\\}|$appcast|g" \
+            | sed -E "s/\\{name\\}/$name/g" \
+            | sed -E "s/\\{filename\\}/$api_installer_name/g" \
+            | sed -E "s/\\{uninstall\\}/$uninstall/g" \
+            >$filename ; \
+
+            if [ "$PUSH" == "true" ]; then
+              git add $filename
+              git commit -m "update $filename to $api_version"
+              git push -f fork "$version-$jvm_impl-$type-$heap"
+              hub pull-request --base adoptopenjdk:master --head "$version-$jvm_impl-$type-$heap" -m "update $filename to $api_version"
+            fi
           fi
         fi
     esac
   done
 }
 
-check_fork
-check_hub
-
-cd Casks
-
-git fetch --all
-git reset --hard upstream/master
+if [ "$PUSH" == "true" ]; then
+  check_fork
+  check_hub
+fi
 
 update_casks
 
