@@ -5,6 +5,7 @@ PUSH=
 for i in "$@"
 do
 case $i in
+    # Perform all git commands, Do not use locally
     --push)
       PUSH="true"
     ;;
