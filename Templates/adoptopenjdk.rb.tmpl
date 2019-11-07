@@ -1,0 +1,14 @@
+cask '{cask_name}' do
+  version '{version_number}'
+  sha256 '{shasum}'
+
+  # github.com/AdoptOpenJDK was verified as official when first introduced to the cask
+  url '{cask_url}'
+  appcast "{appcast}"
+  name '{name}'
+  homepage 'https://adoptopenjdk.net/'
+
+  pkg '{filename}'
+
+  uninstall pkgutil: "{uninstall}"
+end
