@@ -1,6 +1,7 @@
 #!/bin/bash set -eu
 
 PUSH=
+FORCE=
 
 for i in "$@"
 do
