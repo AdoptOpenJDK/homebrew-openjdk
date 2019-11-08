@@ -9,6 +9,7 @@ case $i in
     --push)
       PUSH="true"
     ;;
+    # Force update the cask even if it's already got the latest version
     --force)
       FORCE="true"
     ;;
