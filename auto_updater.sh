@@ -9,6 +9,9 @@ case $i in
     --push)
       PUSH="true"
     ;;
+    --force)
+      FORCE="true"
+    ;;
 esac
 done
 
@@ -66,7 +69,7 @@ function update_casks {
       *)
         api_latest=$(curl --silent "https://api.adoptopenjdk.net/v2/latestAssets/releases/$version?openjdk_impl=$jvm_impl&os=mac&arch=x64&release=latest&type=$type&heap_size=$heap")
         api_url=$(echo $api_latest | grep -Eo '"installer_link":(\s+\S+){1}' | awk '{print $2}' | sed 's/,*$//g' | tr -d '"')
-        if [ "$api_url" != "$cask_url" ]; then
+        if [ "$api_url" != "$cask_url" ] || [ "$FORCE" == "true" ]; then
           echo "Updating $filename"
           cask_sha256=$(cat $filename | grep 'sha256 ' | awk '{print $2}' | tr -d "'")
           api_sha256_link=$(echo $api_latest | grep -Eo '"installer_checksum_link":(\s+\S+){1}' | awk '{print $2}' | sed 's/,*$//g' | tr -d '"')
