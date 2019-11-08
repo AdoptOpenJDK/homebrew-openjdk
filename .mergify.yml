@@ -6,12 +6,10 @@ pull_request_rules:
     actions:
       merge:
         method: squash
+      label:
+        add: [ enhancement ]
   - name: delete head branch on merged pull requests
     conditions:
       - merged
     actions:
       delete_head_branch:
-  - name: add enhancement label
-    actions:
-      label:
-        add: [ enhancement ]
