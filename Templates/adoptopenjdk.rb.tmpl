@@ -15,5 +15,5 @@ cask '{cask_name}' do
     system_command '/usr/sbin/pkgutil', args: ['--pkg-info', '{identifier}'], print_stdout: true
   end
 
-  uninstall pkgutil: "{identifier}"
+  uninstall pkgutil: '{identifier}'
 end
