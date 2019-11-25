@@ -88,11 +88,9 @@ function update_casks {
               minor=$(echo $api_latest | grep -Eo '"openjdk_version":(\s+\S+){1}' | awk '{print $2}' | cut -f1 -d"-" | cut -f2- -d'u')
               build=$(echo $api_latest | grep -Eo '"openjdk_version":(\s+\S+){1}' | awk '{print $2}' | cut -f1 -d"," | cut -f2- -d'-' | tr -d '"')
               api_version="8,$minor:$build"
-              uninstall="net.adoptopenjdk.#{version.before_comma}"
               appcast="https://github.com/adoptopenjdk/openjdk#{version.before_comma}-binaries/releases/latest"
             else
               api_version=$(echo $api_latest | grep -Eo '"semver":(\s+\S+){1}' | awk '{print $2}' | sed 's/,*$//g' | tr -d '"' | sed 's/+/,/g')
-              uninstall="net.adoptopenjdk.#{version.major}"
               appcast="https://github.com/AdoptOpenJDK/openjdk#{version.major}-binaries/releases/latest"
             fi
 
@@ -102,17 +100,18 @@ function update_casks {
             fi
 
             name="AdoptOpenJDK ${version//[!0-9]/}"
+            identifier="net.adoptopenjdk.${version//[!0-9]/}"
 
             if [ "$jvm_impl" == "openj9" ]; then
               name+=" (OpenJ9)"
-              uninstall+="-openj9"
+              identifier+="-openj9"
             fi
 
             if [ "$type" == "jre" ]; then
               name+=" (JRE)"
-              uninstall+=".jre"
+              identifier+=".jre"
             else 
-              uninstall+=".jdk"
+              identifier+=".jdk"
             fi
 
             if [ "$heap" == "large" ]; then
@@ -127,7 +126,7 @@ function update_casks {
             | sed -E "s|\\{appcast\\}|$appcast|g" \
             | sed -E "s/\\{name\\}/$name/g" \
             | sed -E "s/\\{filename\\}/$api_installer_name/g" \
-            | sed -E "s/\\{uninstall\\}/$uninstall/g" \
+            | sed -E "s/\\{identifier\\}/$identifier/g" \
             >$filename ; \
 
             if [ "$PUSH" == "true" ]; then
