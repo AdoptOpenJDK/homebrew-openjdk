@@ -11,5 +11,9 @@ cask 'adoptopenjdk11-openj9-jre' do
 
   pkg 'OpenJDK11U-jre_x64_mac_openj9_11.0.5_10_openj9-0.17.0.pkg'
 
-  uninstall pkgutil: "net.adoptopenjdk.#{version.major}-openj9.jre"
+  postflight do
+    system_command '/usr/sbin/pkgutil', args: ['--pkg-info', 'net.adoptopenjdk.11-openj9.jre'], print_stdout: true
+  end
+
+  uninstall pkgutil: 'net.adoptopenjdk.11-openj9.jre'
 end
