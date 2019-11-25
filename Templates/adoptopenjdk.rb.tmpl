@@ -11,5 +11,9 @@ cask '{cask_name}' do
 
   pkg '{filename}'
 
-  uninstall pkgutil: "{uninstall}"
+  postflight do
+    system_command '/usr/sbin/pkgutil', args: ['--pkg-info', '{identifier}'], print_stdout: true
+  end
+
+  uninstall pkgutil: "{identifier}"
 end
