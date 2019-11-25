@@ -11,5 +11,9 @@ cask 'adoptopenjdk8-jre' do
 
   pkg 'OpenJDK8U-jre_x64_mac_hotspot_8u232b09.pkg'
 
-  uninstall pkgutil: "net.adoptopenjdk.#{version.before_comma}.jre"
+  postflight do
+    system_command '/usr/sbin/pkgutil', args: ['--pkg-info', 'net.adoptopenjdk.8.jre'], print_stdout: true
+  end
+
+  uninstall pkgutil: 'net.adoptopenjdk.8.jre'
 end
