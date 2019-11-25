@@ -11,5 +11,9 @@ cask 'adoptopenjdk11-jre' do
 
   pkg 'OpenJDK11U-jre_x64_mac_hotspot_11.0.5_10.pkg'
 
-  uninstall pkgutil: "net.adoptopenjdk.#{version.major}.jre"
+  postflight do
+    system_command '/usr/sbin/pkgutil', args: ['--pkg-info', 'net.adoptopenjdk.11.jre'], print_stdout: true
+  end
+
+  uninstall pkgutil: 'net.adoptopenjdk.11.jre'
 end
