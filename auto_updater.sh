@@ -69,28 +69,30 @@ function update_casks {
     case $cask_url in
       *.tar.gz*) echo "detected a tar.gz, skipping!" ;;
       *)
-        api_latest=$(curl --silent "https://api.adoptopenjdk.net/v2/latestAssets/releases/$version?openjdk_impl=$jvm_impl&os=mac&arch=x64&release=latest&type=$type&heap_size=$heap")
-        api_url=$(echo $api_latest | grep -Eo '"installer_link":(\s+\S+){1}' | awk '{print $2}' | sed 's/,*$//g' | tr -d '"')
-        if [ "$api_url" != "$cask_url" ] || [ "$FORCE" == "true" ]; then
-          echo "Updating $filename"
-          cask_sha256=$(cat $filename | grep 'sha256 ' | awk '{print $2}' | tr -d "'")
-          api_sha256_link=$(echo $api_latest | grep -Eo '"installer_checksum_link":(\s+\S+){1}' | awk '{print $2}' | sed 's/,*$//g' | tr -d '"')
-          if [ -z $api_sha256_link ]; then
-            echo "Skipping because no pkg available"
-          else
-            api_sha256=$(curl -L --silent $api_sha256_link | awk '{print $1}')
+        api_latest=$(curl --silent "https://api.adoptopenjdk.net/v3/assets/feature_releases/${version//[!0-9]/}/ga?architecture=x64&heap_size=$heap&image_type=$type&jvm_impl=$jvm_impl&os=mac&page=0&page_size=1&vendor=adoptopenjdk")
+        is_installer=$(echo $api_latest | grep installer)
+
+        if [ -z $is_installer ]; then
+          echo "Skipping because no pkg available"
+        else
+          api_url=$(echo $api_latest | python3 -c "import sys, json; print(json.load(sys.stdin)[0]['binaries'][0]['installer']['link'])")
+
+          if [ "$api_url" != "$cask_url" ] || [ "$FORCE" == "true" ]; then
+            echo "Updating $filename"
+            cask_sha256=$(cat $filename | grep 'sha256 ' | awk '{print $2}' | tr -d "'")
+            api_sha256=$(echo $api_latest | python3 -c "import sys, json; print(json.load(sys.stdin)[0]['binaries'][0]['installer']['checksum'])")
 
             cask_installer_name=$(cat $filename | grep 'pkg ' | awk '{print $2}' | tr -d "'")
-            api_installer_name=$(echo $api_latest | grep -Eo '"installer_name":(\s+\S+){1}' | awk '{print $2}' | sed 's/,*$//g' | tr -d '"')
+            api_installer_name=$(echo $api_latest | python3 -c "import sys, json; print(json.load(sys.stdin)[0]['binaries'][0]['installer']['name'])")
             cask_version=$(cat $filename | grep 'version ' | awk '{print $2}' | tr -d "'")
 
             if [ $version == "openjdk8" ]; then
-              minor=$(echo $api_latest | grep -Eo '"openjdk_version":(\s+\S+){1}' | awk '{print $2}' | cut -f1 -d"-" | cut -f2- -d'u')
-              build=$(echo $api_latest | grep -Eo '"openjdk_version":(\s+\S+){1}' | awk '{print $2}' | cut -f1 -d"," | cut -f2- -d'-' | tr -d '"')
-              api_version="8,$minor:$build"
+              security=$(echo $api_latest | python3 -c "import sys, json; print(json.load(sys.stdin)[0]['version_data']['security'])")
+              build=$(echo $api_latest | python3 -c "import sys, json; print(json.load(sys.stdin)[0]['version_data']['openjdk_version'])" | cut -d "-" -f 2)
+              api_version="8,$security:$build"
               appcast="https://github.com/adoptopenjdk/openjdk#{version.before_comma}-binaries/releases/latest"
             else
-              api_version=$(echo $api_latest | grep -Eo '"semver":(\s+\S+){1}' | awk '{print $2}' | sed 's/,*$//g' | tr -d '"' | sed 's/+/,/g')
+              api_version=$(echo $api_latest | python3 -c "import sys, json; print(json.load(sys.stdin)[0]['version_data']['openjdk_version'])" | sed 's/+/,/g')
               appcast="https://github.com/AdoptOpenJDK/openjdk#{version.major}-binaries/releases/latest"
             fi
 
