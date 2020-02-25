@@ -33,3 +33,22 @@ brew cask install <version>
 
 [docnocref]: https://www.eclipse.org/openj9/docs/xcompressedrefs/
 [docmx]: https://www.eclipse.org/openj9/docs/xms/
+
+### Switch between different JDK versions
+1. Add the below function in your `~/.bashrc` or `~/.zshrc` 
+```bash
+jdk() {
+        version=$1
+        export JAVA_HOME=$(/usr/libexec/java_home -v"$version");
+        java -version
+ }
+```
+
+ 2. Source the profile and you can change the version like below:
+ ```bash
+  jdk 1.8
+  jdk 9
+  jdk 11
+  jdk 13
+  ``` 
+ 
