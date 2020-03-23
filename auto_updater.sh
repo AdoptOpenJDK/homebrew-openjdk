@@ -46,100 +46,109 @@ function update_casks {
     git reset --hard upstream/master
   fi
 
-  for filename in adoptopenjdk*.rb; do
-    echo "Checking $filename"
-    case $filename in
-      *openj9*) jvm_impl="openj9" ;;
-      *) jvm_impl="hotspot" ;;
-    esac
+  cat ../casks.txt | while read cask 
+  do
+    if [[ "$cask" != \#* ]]; then
+      echo "Checking $cask"
+      case $cask in
+        *openj9*) jvm_impl="openj9" ;;
+        *) jvm_impl="hotspot" ;;
+      esac
 
-    case $filename in
-      *jre*) type="jre" ;;
-      *) type="jdk" ;;
-    esac
+      case $cask in
+        *jre*) type="jre" ;;
+        *) type="jdk" ;;
+      esac
 
-    case $filename in
-      *large.rb) heap="large" ;;
-      *) heap="normal" ;;
-    esac
+      case $cask in
+        *large) heap="large" ;;
+        *) heap="normal" ;;
+      esac
 
-    version=$(echo $filename | grep -Eo 'openjdk[0-9]{1,2}')
+      version=$(echo $cask | grep -Eo 'openjdk[0-9]{1,2}')
 
-    cask_url=$(cat $filename | grep 'url ' | awk '{print $2}' | tr -d "'")
-    case $cask_url in
-      *.tar.gz*) echo "detected a tar.gz, skipping!" ;;
-      *)
-        api_latest=$(curl --silent "https://api.adoptopenjdk.net/v3/assets/feature_releases/${version//[!0-9]/}/ga?architecture=x64&heap_size=$heap&image_type=$type&jvm_impl=$jvm_impl&os=mac&page=0&page_size=1&vendor=adoptopenjdk")
-        is_installer=$(echo $api_latest | grep installer)
+      # Create new cask of if it doesn't already exist
+      if [[ ! -f $cask.rb ]]; then
+        echo "Creating new cask: $cask.rb"
+        cp ../Templates/adoptopenjdk.rb.tmpl $cask.rb
+      fi
 
-        if [ -z $is_installer ]; then
-          echo "Skipping because no pkg available"
-        else
-          api_url=$(echo $api_latest | python3 -c "import sys, json; print(json.load(sys.stdin)[0]['binaries'][0]['installer']['link'])")
+      cask_url=$(cat $cask.rb | grep 'url ' | awk '{print $2}' | tr -d "'")
+      case $cask_url in
+        *.tar.gz*) echo "detected a tar.gz, skipping!" ;;
+        *)
+          api_latest=$(curl --silent "https://api.adoptopenjdk.net/v3/assets/feature_releases/${version//[!0-9]/}/ga?architecture=x64&heap_size=$heap&image_type=$type&jvm_impl=$jvm_impl&os=mac&page=0&page_size=1&vendor=adoptopenjdk")
+          is_installer=$(echo $api_latest | grep installer)
 
-          if [ "$api_url" != "$cask_url" ] || [ "$FORCE" == "true" ]; then
-            echo "Updating $filename"
-            cask_sha256=$(cat $filename | grep 'sha256 ' | awk '{print $2}' | tr -d "'")
-            api_sha256=$(echo $api_latest | python3 -c "import sys, json; print(json.load(sys.stdin)[0]['binaries'][0]['installer']['checksum'])")
+          if [ -z $is_installer ]; then
+            echo "Skipping because no pkg available"
+          else
+            api_url=$(echo $api_latest | python3 -c "import sys, json; print(json.load(sys.stdin)[0]['binaries'][0]['installer']['link'])")
 
-            cask_installer_name=$(cat $filename | grep 'pkg ' | awk '{print $2}' | tr -d "'")
-            api_installer_name=$(echo $api_latest | python3 -c "import sys, json; print(json.load(sys.stdin)[0]['binaries'][0]['installer']['name'])")
-            cask_version=$(cat $filename | grep 'version ' | awk '{print $2}' | tr -d "'")
+            if [ "$api_url" != "$cask_url" ] || [ "$FORCE" == "true" ]; then
+              echo "Updating $cask"
+              cask_sha256=$(cat $cask.rb | grep 'sha256 ' | awk '{print $2}' | tr -d "'")
+              api_sha256=$(echo $api_latest | python3 -c "import sys, json; print(json.load(sys.stdin)[0]['binaries'][0]['installer']['checksum'])")
 
-            if [ $version == "openjdk8" ]; then
-              security=$(echo $api_latest | python3 -c "import sys, json; print(json.load(sys.stdin)[0]['version_data']['security'])")
-              build=$(echo $api_latest | python3 -c "import sys, json; print(json.load(sys.stdin)[0]['version_data']['openjdk_version'])" | cut -d "-" -f 2)
-              api_version="8,$security:$build"
-              appcast="https://github.com/adoptopenjdk/openjdk#{version.before_comma}-binaries/releases/latest"
-            else
-              api_version=$(echo $api_latest | python3 -c "import sys, json; print(json.load(sys.stdin)[0]['version_data']['openjdk_version'])" | sed 's/+/,/g')
-              appcast="https://github.com/AdoptOpenJDK/openjdk#{version.major}-binaries/releases/latest"
-            fi
+              cask_installer_name=$(cat $cask.rb | grep 'pkg ' | awk '{print $2}' | tr -d "'")
+              api_installer_name=$(echo $api_latest | python3 -c "import sys, json; print(json.load(sys.stdin)[0]['binaries'][0]['installer']['name'])")
+              cask_version=$(cat $cask.rb | grep 'version ' | awk '{print $2}' | tr -d "'")
 
-            if [ "$PUSH" == "true" ]; then
-              git checkout "$version-$jvm_impl-$type-$heap" || git checkout -b "$version-$jvm_impl-$type-$heap"
-              git reset --hard upstream/master
-            fi
+              if [ $version == "openjdk8" ]; then
+                security=$(echo $api_latest | python3 -c "import sys, json; print(json.load(sys.stdin)[0]['version_data']['security'])")
+                build=$(echo $api_latest | python3 -c "import sys, json; print(json.load(sys.stdin)[0]['version_data']['openjdk_version'])" | cut -d "-" -f 2)
+                api_version="8,$security:$build"
+                appcast="https://github.com/adoptopenjdk/openjdk#{version.before_comma}-binaries/releases/latest"
+              else
+                api_version=$(echo $api_latest | python3 -c "import sys, json; print(json.load(sys.stdin)[0]['version_data']['openjdk_version'])" | sed 's/+/,/g')
+                appcast="https://github.com/AdoptOpenJDK/openjdk#{version.major}-binaries/releases/latest"
+              fi
 
-            name="AdoptOpenJDK ${version//[!0-9]/}"
-            identifier="net.adoptopenjdk.${version//[!0-9]/}"
+              if [ "$PUSH" == "true" ]; then
+                git checkout "$version-$jvm_impl-$type-$heap" || git checkout -b "$version-$jvm_impl-$type-$heap"
+                git reset --hard upstream/master
+              fi
 
-            if [ "$jvm_impl" == "openj9" ]; then
-              name+=" (OpenJ9)"
-              identifier+="-openj9"
-            fi
+              name="AdoptOpenJDK ${version//[!0-9]/}"
+              identifier="net.adoptopenjdk.${version//[!0-9]/}"
 
-            if [ "$type" == "jre" ]; then
-              name+=" (JRE)"
-              identifier+=".jre"
-            else 
-              identifier+=".jdk"
-            fi
+              if [ "$jvm_impl" == "openj9" ]; then
+                name+=" (OpenJ9)"
+                identifier+="-openj9"
+              fi
 
-            if [ "$heap" == "large" ]; then
-              name+=" (XL)"
-            fi
+              if [ "$type" == "jre" ]; then
+                name+=" (JRE)"
+                identifier+=".jre"
+              else 
+                identifier+=".jdk"
+              fi
 
-            cat ../Templates/adoptopenjdk.rb.tmpl  \
-            | sed -E "s/\\{cask_name\\}/${filename%.*}/g" \
-            | sed -E "s/\\{version_number\\}/$api_version/g" \
-            | sed -E "s/\\{shasum\\}/$api_sha256/g" \
-            | sed -E "s|\\{cask_url\\}|$api_url|g" \
-            | sed -E "s|\\{appcast\\}|$appcast|g" \
-            | sed -E "s/\\{name\\}/$name/g" \
-            | sed -E "s/\\{filename\\}/$api_installer_name/g" \
-            | sed -E "s/\\{identifier\\}/$identifier/g" \
-            >$filename ; \
+              if [ "$heap" == "large" ]; then
+                name+=" (XL)"
+              fi
 
-            if [ "$PUSH" == "true" ]; then
-              git add $filename
-              git commit -m "update $filename to $api_version"
-              git push -f fork "$version-$jvm_impl-$type-$heap"
-              hub pull-request --base adoptopenjdk:master --head "$version-$jvm_impl-$type-$heap" -m "update $filename to $api_version"
+              cat ../Templates/adoptopenjdk.rb.tmpl  \
+              | sed -E "s/\\{cask_name\\}/${cask%.*}/g" \
+              | sed -E "s/\\{version_number\\}/$api_version/g" \
+              | sed -E "s/\\{shasum\\}/$api_sha256/g" \
+              | sed -E "s|\\{cask_url\\}|$api_url|g" \
+              | sed -E "s|\\{appcast\\}|$appcast|g" \
+              | sed -E "s/\\{name\\}/$name/g" \
+              | sed -E "s/\\{filename\\}/$api_installer_name/g" \
+              | sed -E "s/\\{identifier\\}/$identifier/g" \
+              >$cask.rb ; \
+
+              if [ "$PUSH" == "true" ]; then
+                git add $cask
+                git commit -m "update $cask to $api_version"
+                git push -f fork "$version-$jvm_impl-$type-$heap"
+                hub pull-request --base adoptopenjdk:master --head "$version-$jvm_impl-$type-$heap" -m "update $cask to $api_version"
+              fi
             fi
           fi
-        fi
-    esac
+      esac
+    fi
   done
 }
 
