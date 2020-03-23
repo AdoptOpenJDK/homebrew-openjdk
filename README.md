@@ -53,5 +53,18 @@ jdk() {
   jdk 9
   jdk 11
   jdk 13
-  ``` 
+  ```
+
+### Adding a new cask
+If a new major version has been released (e.g 14) add it to [casks.txt](casks.txt). Normally you just need to copy the list of casks from the previous major version. e.g
+
+```bash
+# OpenJDK14
+adoptopenjdk14
+adoptopenjdk14-jre
+adoptopenjdk14-openj9
+adoptopenjdk14-openj9-jre
+adoptopenjdk14-openj9-largeå
+adoptopenjdk14-openj9-jre-large
+```
  
