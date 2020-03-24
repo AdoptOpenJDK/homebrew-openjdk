@@ -64,7 +64,7 @@ adoptopenjdk14
 adoptopenjdk14-jre
 adoptopenjdk14-openj9
 adoptopenjdk14-openj9-jre
-adoptopenjdk14-openj9-largeå
+adoptopenjdk14-openj9-large
 adoptopenjdk14-openj9-jre-large
 ```
  
