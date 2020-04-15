@@ -80,7 +80,7 @@ function update_casks {
           api_latest=$(curl --silent "https://api.adoptopenjdk.net/v3/assets/feature_releases/${version//[!0-9]/}/ga?architecture=x64&heap_size=$heap&image_type=$type&jvm_impl=$jvm_impl&os=mac&page=0&page_size=1&vendor=adoptopenjdk")
           is_installer=$(echo $api_latest | grep installer)
 
-          if [ -z $is_installer ]; then
+          if [ -z "$is_installer" ]; then
             echo "Skipping because no pkg available"
           else
             api_url=$(echo $api_latest | python3 -c "import sys, json; print(json.load(sys.stdin)[0]['binaries'][0]['installer']['link'])")
@@ -147,6 +147,7 @@ function update_casks {
               fi
             fi
           fi
+        ;;
       esac
     fi
   done
