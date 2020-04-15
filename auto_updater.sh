@@ -140,7 +140,7 @@ function update_casks {
               >$cask.rb ; \
 
               if [ "$PUSH" == "true" ]; then
-                git add $cask
+                git add $cask.rb
                 git commit -m "update $cask to $api_version"
                 git push -f fork "$version-$jvm_impl-$type-$heap"
                 hub pull-request --base adoptopenjdk:master --head "$version-$jvm_impl-$type-$heap" -m "update $cask to $api_version"
