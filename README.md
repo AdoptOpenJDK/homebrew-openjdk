@@ -2,16 +2,25 @@
 
 [![Build Status](https://travis-ci.com/AdoptOpenJDK/homebrew-openjdk.svg?branch=master)](https://travis-ci.com/AdoptOpenJDK/homebrew-openjdk)
 
-### Latest:
-`brew cask install adoptopenjdk`
+## Usage 
 
-### Other Versions:
+Activate the AdoptOpenJDK tap with `brew tap` and then install the desired version with `brew cask install`:
+
 ```bash
-brew tap AdoptOpenJDK/openjdk
-brew cask install <version>
+$ brew tap AdoptOpenJDK/openjdk
+$ brew cask install <version>
 ```
 
-#### Versions
+To install AdoptOpenJDK 14 with HotSpot, run:
+
+```bash
+$ brew tap AdoptOpenJDK/openjdk
+$ brew cask install adoptopenjdk14
+```
+
+To get a list of available versions, run `brew search adoptopenjdk` or see the [list here in the README](#available-versions).
+
+### Available Versions
 | Java Version | JDK | JRE
 |--|--|--|
 | OpenJDK8 with Hotspot JVM | `adoptopenjdk8` | `adoptopenjdk8-jre` |
@@ -55,7 +64,24 @@ jdk() {
   jdk 13
   ```
 
-### Adding a new cask
+### Migrating from adoptopenjdk cask
+
+The cask `adoptopenjdk` is not notarized at this time and will not work without workarounds. To check if you have the correct casks installed, run `brew cask list`:
+
+```bash
+$ brew cask list
+adoptopenjdk
+```
+
+If the output contains adoptopenjdk (without any version number), you should migrate to our tap. To uninstall the cask, run:
+
+```bash
+$ brew cask uninstall adoptopenjdk
+```
+
+Then follow [the install instructions](#usage).
+
+## Adding a new cask
 If a new major version has been released (e.g 14) add it to [casks.txt](casks.txt). Normally you just need to copy the list of casks from the previous major version. e.g
 
 ```bash
