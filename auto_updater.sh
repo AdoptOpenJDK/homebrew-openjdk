@@ -91,8 +91,19 @@ function update_casks {
 
               api_installer_name=$(echo $api_latest | python3 -c "import sys, json; print(json.load(sys.stdin)[0]['binaries'][0]['installer']['name'])")
 
-              appcast="https://github.com/AdoptOpenJDK/openjdk#{version.major}-binaries/releases/latest"
-              api_version=$(echo $api_latest | python3 -c "import sys, json; print(json.load(sys.stdin)[0]['version_data']['semver'])" | sed 's/+/,/g')
+              if [ $version == "openjdk8" ]; then
+                security=$(echo $api_latest | python3 -c "import sys, json; print(json.load(sys.stdin)[0]['version_data']['security'])")
+                build=$(echo $api_latest | python3 -c "import sys, json; print(json.load(sys.stdin)[0]['version_data']['openjdk_version'])" | cut -d "-" -f 2)
+                adopt_build_number=$(echo $api_latest | python3 -c "import sys, json; print(json.load(sys.stdin)[0]['version_data']['adopt_build_number'])")
+                api_version="8,$security:$build"
+                if [ "$adopt_build_number" != "" ]; then
+                  api_version="$api_version.$adopt_build_number"
+                fi
+                appcast="https://github.com/adoptopenjdk/openjdk#{version.before_comma}-binaries/releases/latest"
+              else
+                api_version=$(echo $api_latest | python3 -c "import sys, json; print(json.load(sys.stdin)[0]['version_data']['semver'])" | sed 's/+/,/g')
+                appcast="https://github.com/AdoptOpenJDK/openjdk#{version.major}-binaries/releases/latest"
+              fi
 
               if [ "$PUSH" == "true" ]; then
                 git checkout "$version-$jvm_impl-$type-$heap" || git checkout -b "$version-$jvm_impl-$type-$heap"
