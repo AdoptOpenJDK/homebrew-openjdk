@@ -87,22 +87,12 @@ function update_casks {
 
             if [ "$api_url" != "$cask_url" ] || [ "$FORCE" == "true" ]; then
               echo "Updating $cask"
-              cask_sha256=$(cat $cask.rb | grep 'sha256 ' | awk '{print $2}' | tr -d "'")
               api_sha256=$(echo $api_latest | python3 -c "import sys, json; print(json.load(sys.stdin)[0]['binaries'][0]['installer']['checksum'])")
 
-              cask_installer_name=$(cat $cask.rb | grep 'pkg ' | awk '{print $2}' | tr -d "'")
               api_installer_name=$(echo $api_latest | python3 -c "import sys, json; print(json.load(sys.stdin)[0]['binaries'][0]['installer']['name'])")
-              cask_version=$(cat $cask.rb | grep 'version ' | awk '{print $2}' | tr -d "'")
 
-              if [ $version == "openjdk8" ]; then
-                security=$(echo $api_latest | python3 -c "import sys, json; print(json.load(sys.stdin)[0]['version_data']['security'])")
-                build=$(echo $api_latest | python3 -c "import sys, json; print(json.load(sys.stdin)[0]['version_data']['openjdk_version'])" | cut -d "-" -f 2)
-                api_version="8,$security:$build"
-                appcast="https://github.com/adoptopenjdk/openjdk#{version.before_comma}-binaries/releases/latest"
-              else
-                api_version=$(echo $api_latest | python3 -c "import sys, json; print(json.load(sys.stdin)[0]['version_data']['openjdk_version'])" | sed 's/+/,/g')
-                appcast="https://github.com/AdoptOpenJDK/openjdk#{version.major}-binaries/releases/latest"
-              fi
+              appcast="https://github.com/AdoptOpenJDK/openjdk#{version.major}-binaries/releases/latest"
+              api_version=$(echo $api_latest | python3 -c "import sys, json; print(json.load(sys.stdin)[0]['version_data']['semver'])" | sed 's/+/,/g')
 
               if [ "$PUSH" == "true" ]; then
                 git checkout "$version-$jvm_impl-$type-$heap" || git checkout -b "$version-$jvm_impl-$type-$heap"
