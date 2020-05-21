@@ -4,7 +4,15 @@
 
 ## Usage 
 
-Activate the AdoptOpenJDK tap with `brew tap` and then install the desired version with `brew cask install`:
+To always get the latest and greatest AdoptOpenJDK, run:
+
+```bash
+$ brew cask install adoptopenjdk
+```
+
+The `adoptopenjdk` cask will automatically upgrade to the newest patch or major release as soon as it comes out.
+
+To stay with a specific major release, activate the AdoptOpenJDK tap with `brew tap` and then install the desired version with `brew cask install`:
 
 ```bash
 $ brew tap AdoptOpenJDK/openjdk
@@ -18,7 +26,7 @@ $ brew tap AdoptOpenJDK/openjdk
 $ brew cask install adoptopenjdk14
 ```
 
-To get a list of available versions, run `brew search adoptopenjdk` or see the [list here in the README](#available-versions).
+Multiple major releases can be installed side-by-side. To get a list of available versions, run `brew search adoptopenjdk` or see the [list here in the README](#available-versions).
 
 ### Available Versions
 | Java Version | JDK | JRE
@@ -64,23 +72,6 @@ jdk() {
   jdk 13
   ```
 
-### Migrating from adoptopenjdk cask
-
-The cask `adoptopenjdk` is not notarized at this time and will not work without workarounds. To check if you have the correct casks installed, run `brew cask list`:
-
-```bash
-$ brew cask list
-adoptopenjdk
-```
-
-If the output contains adoptopenjdk (without any version number), you should migrate to our tap. To uninstall the cask, run:
-
-```bash
-$ brew cask uninstall adoptopenjdk
-```
-
-Then follow [the install instructions](#usage).
-
 ## Adding a new cask
 If a new major version has been released (e.g 14) add it to [casks.txt](casks.txt). Normally you just need to copy the list of casks from the previous major version. e.g
 
@@ -93,4 +84,3 @@ adoptopenjdk14-openj9-jre
 adoptopenjdk14-openj9-large
 adoptopenjdk14-openj9-jre-large
 ```
- 
