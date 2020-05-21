@@ -14,6 +14,9 @@ brew cask install <version>
 #### Versions
 | Java Version | JDK | JRE
 |--|--|--|
+| Latest OpenJDK with Hotspot JVM | `adoptopenjdk` | `adoptopenjdk-jre` | 
+| Latest OpenJDK with OpenJ9 JVM | `adoptopenjdk-openj9` | `adoptopenjdk-openj9-jre` | 
+| Latest OpenJDK with OpenJ9 JVM, large heap* | `adoptopenjdk-openj9-large` | `adoptopenjdk-openj9-jre-large` | 
 | OpenJDK8 with Hotspot JVM | `adoptopenjdk8` | `adoptopenjdk8-jre` |
 | OpenJDK8 with OpenJ9 JVM | `adoptopenjdk8-openj9` | `adoptopenjdk8-openj9-jre` |
 | OpenJDK8 with OpenJ9 JVM, large heap* | `adoptopenjdk8-openj9-large` | `adoptopenjdk8-openj9-jre-large` |

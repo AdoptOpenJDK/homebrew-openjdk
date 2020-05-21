@@ -1,4 +1,10 @@
 # This is a list of casks to be updated by auto_updater.sh
+# Always the latest version
+adoptopenjdk-jre
+adoptopenjdk-openj9
+adoptopenjdk-openj9-jre
+adoptopenjdk-openj9-large
+adoptopenjdk-openj9-jre-large
 # OpenJDK8
 adoptopenjdk8
 adoptopenjdk8-jre
