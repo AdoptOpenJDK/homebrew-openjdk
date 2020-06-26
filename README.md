@@ -2,16 +2,33 @@
 
 [![Build Status](https://travis-ci.com/AdoptOpenJDK/homebrew-openjdk.svg?branch=master)](https://travis-ci.com/AdoptOpenJDK/homebrew-openjdk)
 
-### Latest:
-`brew cask install adoptopenjdk`
+## Usage 
 
-### Other Versions:
+To always get the latest and greatest AdoptOpenJDK, run:
+
 ```bash
-brew tap AdoptOpenJDK/openjdk
-brew cask install <version>
+$ brew cask install adoptopenjdk
 ```
 
-#### Versions
+The `adoptopenjdk` cask will automatically upgrade to the newest patch or major release as soon as it comes out.
+
+To stay with a specific major release, activate the AdoptOpenJDK tap with `brew tap` and then install the desired version with `brew cask install`:
+
+```bash
+$ brew tap AdoptOpenJDK/openjdk
+$ brew cask install <version>
+```
+
+To install AdoptOpenJDK 14 with HotSpot, run:
+
+```bash
+$ brew tap AdoptOpenJDK/openjdk
+$ brew cask install adoptopenjdk14
+```
+
+Multiple major releases can be installed side-by-side. To get a list of available versions, run `brew search adoptopenjdk` or see the [list here in the README](#available-versions).
+
+### Available Versions
 | Java Version | JDK | JRE
 |--|--|--|
 | OpenJDK8 with Hotspot JVM | `adoptopenjdk8` | `adoptopenjdk8-jre` |
@@ -55,7 +72,7 @@ jdk() {
   jdk 13
   ```
 
-### Adding a new cask
+## Adding a new cask
 If a new major version has been released (e.g 14) add it to [casks.txt](casks.txt). Normally you just need to copy the list of casks from the previous major version. e.g
 
 ```bash
@@ -67,4 +84,3 @@ adoptopenjdk14-openj9-jre
 adoptopenjdk14-openj9-large
 adoptopenjdk14-openj9-jre-large
 ```
- 
