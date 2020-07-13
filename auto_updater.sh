@@ -65,7 +65,18 @@ function update_casks {
         *) heap="normal" ;;
       esac
 
-      version=$(echo $cask | grep -Eo 'openjdk[0-9]{1,2}')
+      # Obtain the latest major release from the api (most_recent_feature_release) for
+      # non-versioned casks. For versioned casks, the major release is extracted from the file
+      # name. 
+      case $cask in
+        *jdk-jre|*jdk-openj9|*jdk-openj9-jre|*jdk-openj9-large|*jdk-openj9-jre-large)
+          api_release_info=$(curl --silent https://api.adoptopenjdk.net/v3/info/available_releases)
+          version=$(echo $api_release_info | python3 -c "import sys, json; print(json.load(sys.stdin)['most_recent_feature_release'])")
+          ;;
+        *)
+          version=$(echo $cask | grep -Eo 'openjdk[0-9]{1,2}')
+          ;;
+      esac
 
       # Create new cask of if it doesn't already exist
       if [[ ! -f $cask.rb ]]; then
