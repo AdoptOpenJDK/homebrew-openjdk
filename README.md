@@ -67,6 +67,16 @@ jdk() {
  }
 ```
 
+For Fish shell user, add the below function in your `~/.config/fish/functions`
+
+```fish
+function jdk
+	set java_version $argv
+	set -Ux JAVA_HOME (/usr/libexec/java_home -v $java_version)
+	java -version
+end
+```
+
  2. Source the profile and you can change the version like below:
  ```bash
   jdk 1.8
