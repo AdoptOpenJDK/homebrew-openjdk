@@ -44,15 +44,12 @@ function update_casks {
 
   if [ "$PUSH" == "true" ]; then
     git fetch --all
+    git checkout "$BRANCH" || git checkout -b "$BRANCH"
     git reset --hard upstream/master
   fi
 
   cat ../casks.txt | while read cask 
   do
-    if [ "$PUSH" == "true" ]; then
-      git checkout "$BRANCH" || git checkout -b "$BRANCH"
-      git reset --hard upstream/master
-    fi
     if [[ "$cask" != \#* ]]; then
       echo "Checking $cask"
       case $cask in
