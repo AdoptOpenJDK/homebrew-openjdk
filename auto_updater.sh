@@ -97,8 +97,6 @@ function update_casks {
             api_url=$(echo $api_latest | python3 -c "import sys, json; print(json.load(sys.stdin)[0]['binaries'][0]['installer']['link'])")
 
             if [ "$api_url" != "$cask_url" ] || [ "$FORCE" == "true" ]; then
-              echo $api_url
-              echo $cask_url
               echo "Updating $cask"
               api_sha256=$(echo $api_latest | python3 -c "import sys, json; print(json.load(sys.stdin)[0]['binaries'][0]['installer']['checksum'])")
 
