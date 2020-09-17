@@ -84,7 +84,7 @@ function update_casks {
         cp ../Templates/adoptopenjdk.rb.tmpl $cask.rb
       fi
 
-      cask_url=$(cat $cask.rb | grep 'url ' | awk '{print $2}' | tr -d "'")
+      cask_url=$(cat $cask.rb | grep 'url ' | awk '{print $2}' | tr -d '"')
       case $cask_url in
         *.tar.gz*) echo "detected a tar.gz, skipping!" ;;
         *)
@@ -97,6 +97,8 @@ function update_casks {
             api_url=$(echo $api_latest | python3 -c "import sys, json; print(json.load(sys.stdin)[0]['binaries'][0]['installer']['link'])")
 
             if [ "$api_url" != "$cask_url" ] || [ "$FORCE" == "true" ]; then
+              echo $api_url
+              echo $cask_url
               echo "Updating $cask"
               api_sha256=$(echo $api_latest | python3 -c "import sys, json; print(json.load(sys.stdin)[0]['binaries'][0]['installer']['checksum'])")
 
@@ -112,7 +114,12 @@ function update_casks {
                 fi
                 appcast="https://github.com/adoptopenjdk/openjdk#{version.before_comma}-binaries/releases/latest"
               else
-                api_version=$(echo $api_latest | python3 -c "import sys, json; print(json.load(sys.stdin)[0]['version_data']['semver'])" | sed 's/+/,/g')
+                minor=$(echo $api_latest | python3 -c "import sys, json; print(json.load(sys.stdin)[0]['version_data']['minor'])")
+                if [ "$minor" == 0 ]; then
+                  api_version=$(echo $api_latest | python3 -c "import sys, json; print(json.load(sys.stdin)[0]['version_data']['openjdk_version'])" | sed 's/+/,/g')
+                else
+                  api_version=$(echo $api_latest | python3 -c "import sys, json; print(json.load(sys.stdin)[0]['version_data']['semver'])" | sed 's/+/,/g')
+                fi
                 appcast="https://github.com/AdoptOpenJDK/openjdk#{version.major}-binaries/releases/latest"
               fi
 
