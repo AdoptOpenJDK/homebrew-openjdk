@@ -28,7 +28,7 @@ jobs:
       - name: Generate CI matrix
         id: generate-matrix
         run: |
-          ls $(brew --repository homebrew/cask)/cmd/lib/
+          ls $(brew --repository homebrew/cask)
           brew ruby -- "$(brew --repository homebrew/cask)/cmd/lib/generate-matrix.rb" "${{ github.event.pull_request.url }}"
   test:
     name: ${{ matrix.name }}
