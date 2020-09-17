@@ -9,6 +9,7 @@ case $i in
     # Perform all git commands, Do not use locally
     --push)
       PUSH="true"
+      BRANCH=$(date +"%Y-%m-%d")
     ;;
     # Force update the cask even if it's already got the latest version
     --force)
@@ -105,7 +106,7 @@ function update_casks {
               if [ $version == "openjdk8" ]; then
                 security=$(echo $api_latest | python3 -c "import sys, json; print(json.load(sys.stdin)[0]['version_data']['security'])")
                 build=$(echo $api_latest | python3 -c "import sys, json; print(json.load(sys.stdin)[0]['version_data']['openjdk_version'])" | cut -d "-" -f 2)
-                adopt_build_number=$(echo $api_latest | python3 -c "import sys, json; print(json.load(sys.stdin)[0]['version_data']['adopt_build_number'])")
+                adopt_build_number=$(echo $api_latest | python3 -c "import sys, json; print(json.load(sys.stdin)[0]['version_data']['adopt_build_number'])") || ""
                 api_version="8,$security:$build"
                 if [ "$adopt_build_number" != "" ]; then
                   api_version="$api_version.$adopt_build_number"
@@ -122,7 +123,7 @@ function update_casks {
               fi
 
               if [ "$PUSH" == "true" ]; then
-                git checkout "$version-$jvm_impl-$type-$heap" || git checkout -b "$version-$jvm_impl-$type-$heap"
+                git checkout "$BRANCH" || git checkout -b "$BRANCH"
                 git reset --hard upstream/master
               fi
 
@@ -159,8 +160,6 @@ function update_casks {
               if [ "$PUSH" == "true" ]; then
                 git add $cask.rb
                 git commit -m "update $cask to $api_version"
-                git push -f fork "$version-$jvm_impl-$type-$heap"
-                hub pull-request --base adoptopenjdk:master --head "$version-$jvm_impl-$type-$heap" -m "update $cask to $api_version"
               fi
             fi
           fi
@@ -168,6 +167,10 @@ function update_casks {
       esac
     fi
   done
+  if [ "$PUSH" == "true" ]; then
+    git push -f fork "$BRANCH"
+    hub pull-request --base adoptopenjdk:master --head "$BRANCH" -m "update Casks"
+  fi
 }
 
 if [ "$PUSH" == "true" ]; then
