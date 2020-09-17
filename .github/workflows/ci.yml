@@ -19,6 +19,7 @@ jobs:
         with:
           test-bot: false
 
+      # This is AdoptOpenJDK specific - make sure it isn't removed
       - name: Tap homebrew/cask
         run: brew tap homebrew/cask
 
@@ -31,7 +32,6 @@ jobs:
       - name: Generate CI matrix
         id: generate-matrix
         run: |
-          ls $(brew --repository homebrew/cask)
           brew ruby -- "$(brew --repository homebrew/cask)/cmd/lib/generate-matrix.rb" "${{ github.event.pull_request.url }}"
   test:
     name: ${{ matrix.name }}
@@ -46,6 +46,10 @@ jobs:
         uses: Homebrew/actions/setup-homebrew@master
         with:
           test-bot: false
+
+      # This is AdoptOpenJDK specific - make sure it isn't removed
+      - name: Tap homebrew/cask
+        run: brew tap homebrew/cask
 
       - name: Check out Pull Request
         uses: actions/checkout@v2
@@ -65,11 +69,6 @@ jobs:
           fi
           if ! rm /usr/local/bin/pod; then
             echo '::warning::Removing `cocoapods` symlink is no longer necessary.'
-          fi
-          if brew tap-info adoptopenjdk/openjdk; then
-            brew untap adoptopenjdk/openjdk
-          else
-            echo '::warning::Untapping adoptopenjdk/openjdk is no longer necessary.'
           fi
       - name: Cache Homebrew Gems
         uses: actions/cache@v2
