@@ -49,6 +49,10 @@ function update_casks {
 
   cat ../casks.txt | while read cask 
   do
+    if [ "$PUSH" == "true" ]; then
+      git checkout "$BRANCH" || git checkout -b "$BRANCH"
+      git reset --hard upstream/master
+    fi
     if [[ "$cask" != \#* ]]; then
       echo "Checking $cask"
       case $cask in
@@ -120,11 +124,6 @@ function update_casks {
                   api_version=$(echo $api_latest | python3 -c "import sys, json; print(json.load(sys.stdin)[0]['version_data']['semver'])" | sed 's/+/,/g')
                 fi
                 appcast="https://github.com/AdoptOpenJDK/openjdk#{version.major}-binaries/releases/latest"
-              fi
-
-              if [ "$PUSH" == "true" ]; then
-                git checkout "$BRANCH" || git checkout -b "$BRANCH"
-                git reset --hard upstream/master
               fi
 
               name="AdoptOpenJDK ${version//[!0-9]/}"
