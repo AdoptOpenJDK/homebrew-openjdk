@@ -19,6 +19,9 @@ jobs:
         with:
           test-bot: false
 
+      - name: Tap homebrew/cask
+        run: brew tap homebrew/cask
+
       - name: Check out Pull Request
         uses: actions/checkout@v2
         with:
