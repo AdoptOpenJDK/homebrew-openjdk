@@ -47,4 +47,8 @@ adoptopenjdk14-openj9-jre-large
 # OpenJDK15
 adoptopenjdk15
 adoptopenjdk15-jre
+adoptopenjdk15-openj9
+adoptopenjdk15-openj9-jre
+adoptopenjdk15-openj9-large
+adoptopenjdk15-openj9-jre-large
 # Leave this blank line
