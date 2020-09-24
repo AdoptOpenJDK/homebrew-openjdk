@@ -6,6 +6,7 @@ cask "adoptopenjdk12" do
   url "https://github.com/AdoptOpenJDK/openjdk12-binaries/releases/download/jdk-12.0.2%2B10.2/OpenJDK12U-jdk_x64_mac_hotspot_12.0.2_10.pkg"
   appcast "https://github.com/AdoptOpenJDK/openjdk#{version.major}-binaries/releases/latest"
   name "AdoptOpenJDK 12"
+  desc "AdoptOpenJDK OpenJDK (Java) Development Kit"
   homepage "https://adoptopenjdk.net/"
 
   pkg "OpenJDK12U-jdk_x64_mac_hotspot_12.0.2_10.pkg"

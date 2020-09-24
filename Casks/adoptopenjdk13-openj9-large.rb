@@ -7,6 +7,7 @@ cask "adoptopenjdk13-openj9-large" do
   url "https://github.com/AdoptOpenJDK/openjdk13-binaries/releases/download/jdk-13.0.2%2B8_openj9-0.18.0/OpenJDK13U-jdk_x64_mac_openj9_macosXL_13.0.2_8_openj9-0.18.0.pkg"
   appcast "https://github.com/AdoptOpenJDK/openjdk#{version.major}-binaries/releases/latest"
   name "AdoptOpenJDK 13 (OpenJ9) (XL)"
+  desc "AdoptOpenJDK OpenJDK (Java) Development Kit"
   homepage "https://adoptopenjdk.net/"
 
   pkg "OpenJDK13U-jdk_x64_mac_openj9_macosXL_13.0.2_8_openj9-0.18.0.pkg"

@@ -6,6 +6,7 @@ cask "adoptopenjdk10" do
   url "https://github.com/AdoptOpenJDK/openjdk10-binaries/releases/download/jdk-10.0.2%2B13.1/OpenJDK10U-jdk_x64_mac_hotspot_10.0.2_13.tar.gz"
   appcast "https://github.com/adoptopenjdk/openjdk#{version.before_comma}-binaries/releases.atom"
   name "AdoptOpenJDK 10"
+  desc "AdoptOpenJDK OpenJDK (Java) Development Kit"
   homepage "https://adoptopenjdk.net/"
 
   postflight do

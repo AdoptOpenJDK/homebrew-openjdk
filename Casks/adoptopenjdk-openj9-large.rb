@@ -7,6 +7,7 @@ cask "adoptopenjdk-openj9-large" do
   url "https://github.com/AdoptOpenJDK/openjdk15-binaries/releases/download/jdk-15%2B36_openj9-0.22.0/OpenJDK15U-jdk_x64_mac_openj9_macosXL_15_36_openj9-0.22.0.pkg"
   appcast "https://github.com/AdoptOpenJDK/openjdk#{version.major}-binaries/releases/latest"
   name "AdoptOpenJDK 15 (OpenJ9) (XL)"
+  desc "AdoptOpenJDK OpenJDK (Java) Development Kit"
   homepage "https://adoptopenjdk.net/"
 
   pkg "OpenJDK15U-jdk_x64_mac_openj9_macosXL_15_36_openj9-0.22.0.pkg"

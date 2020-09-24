@@ -33,6 +33,7 @@ jobs:
         id: generate-matrix
         run: |
           brew ruby -- "$(brew --repository homebrew/cask)/cmd/lib/generate-matrix.rb" "${{ github.event.pull_request.url }}"
+
   test:
     name: ${{ matrix.name }}
     needs: generate-matrix
@@ -64,12 +65,29 @@ jobs:
               echo '::warning::Removing Visual Studio is no longer necessary.'
             fi
           fi
+
+          if ! rm /usr/local/share/man/man1/al.1 || \
+             ! sudo rm /etc/paths.d/mono-commands || \
+             ! sudo rm -r /Library/Frameworks/Mono.framework || \
+             ! sudo pkgutil --forget com.xamarin.mono-MDK.pkg; then
+            echo '::warning::Uninstalling Mono is no longer necessary.'
+          fi
+
           if ! rm /usr/local/bin/dotnet; then
             echo '::warning::Removing `dotnet` symlink is no longer necessary.'
           fi
+
           if ! rm /usr/local/bin/pod; then
             echo '::warning::Removing `cocoapods` symlink is no longer necessary.'
           fi
+
+      # Workaround until the `cache` action uses the changes from
+      # https://github.com/actions/toolkit/pull/580.
+      - name: Unlink workspace
+        run: |
+          mv "${GITHUB_WORKSPACE}" "${GITHUB_WORKSPACE}-link"
+          mkdir "${GITHUB_WORKSPACE}"
+
       - name: Cache Homebrew Gems
         uses: actions/cache@v2
         with:
@@ -77,22 +95,26 @@ jobs:
           key: ${{ runner.os }}-rubygems-${{ steps.set-up-homebrew.outputs.gems-hash }}
           restore-keys: ${{ runner.os }}-rubygems-
 
+      # Workaround until the `cache` action uses the changes from
+      # https://github.com/actions/toolkit/pull/580.
+      - name: Re-link workspace
+        run: |
+          rmdir "${GITHUB_WORKSPACE}"
+          mv "${GITHUB_WORKSPACE}-link" "${GITHUB_WORKSPACE}"
+
       - name: Install Homebrew Gems
+        id: gems
         run: brew install-bundler-gems
 
-      - name: Run brew cask style
-        run: brew cask style
-        if: success() && !matrix.cask
+      - name: Run brew style ${{ matrix.cask.token || matrix.tap }}
+        run: brew style '${{ matrix.cask.path || matrix.tap }}'
+        if: always() && steps.gems.outcome == 'success' && !matrix.cask
 
-      - name: Run brew cask audit ${{ matrix.cask.token }}
+      - name: Run brew cask audit ${{ matrix.cask.token || matrix.tap }}
         run: |
-          if ${{ !matrix.cask }}; then
-            brew cask audit
-            exit $?
-          fi
-          brew cask audit ${{ join(matrix.audit_args, ' ') }} '${{ matrix.cask.path }}'
+          brew cask audit ${{ join(matrix.audit_args, ' ') }} '${{ matrix.cask.path || matrix.tap }}'
         timeout-minutes: 30
-        if: always() && !matrix.skip_audit
+        if: always() && steps.gems.outcome == 'success' && !matrix.skip_audit
 
       - name: Gather cask information
         id: info
@@ -100,22 +122,29 @@ jobs:
           brew ruby <<'EOF'
             require 'cask/cask_loader'
             require 'cask/installer'
+
             cask = Cask::CaskLoader.load('${{ matrix.cask.path }}')
+
             was_installed = cask.installed?
             manual_installer = cask.artifacts.any? { |artifact|
               artifact.is_a?(Cask::Artifact::Installer::ManualInstaller)
             }
+
             macos_requirement_satisfied = if macos_requirement = cask.depends_on.macos
               macos_requirement.satisfied?
             else
               true
             end
+
             cask_conflicts = cask.conflicts_with&.dig(:cask).to_a.select { |c| Cask::CaskLoader.load(c).installed? }
             formula_conflicts = cask.conflicts_with&.dig(:formula).to_a.select { |f| Formula[f].any_version_installed? }
+
             installer = Cask::Installer.new(cask)
             cask_and_formula_dependencies = installer.missing_cask_and_formula_dependencies
+
             cask_dependencies = cask_and_formula_dependencies.select { |d| d.is_a?(Cask::Cask) }.map(&:full_name)
             formula_dependencies = cask_and_formula_dependencies.select { |d| d.is_a?(Formula) }.map(&:full_name)
+
             puts "::set-output name=was_installed::#{JSON.generate(was_installed)}"
             puts "::set-output name=manual_installer::#{JSON.generate(manual_installer)}"
             puts "::set-output name=macos_requirement_satisfied::#{JSON.generate(macos_requirement_satisfied)}"
@@ -124,7 +153,7 @@ jobs:
             puts "::set-output name=formula_conflicts::#{JSON.generate(formula_conflicts)}"
             puts "::set-output name=formula_dependencies::#{JSON.generate(formula_dependencies)}"
           EOF
-        if: always() && matrix.cask
+        if: always() && steps.gems.outcome == 'success' && matrix.cask
 
       - name: Uninstall conflicting formulae
         run: |
@@ -143,14 +172,6 @@ jobs:
           brew cask zap '${{ matrix.cask.path }}'
         if: always() && steps.info.outcome == 'success' && fromJSON(steps.info.outputs.was_installed)
         timeout-minutes: 30
-
-      - name: Take snapshot of installed and running apps and services
-        id: snapshot
-        run: |
-          brew ruby -r "$(brew --repository homebrew/cask)/cmd/lib/check.rb" <<'EOF'
-            puts "::set-output name=before::#{JSON.generate(Check.all)}"
-          EOF
-        if: always() && steps.info.outcome == 'success'
 
       - name: Run brew cask install ${{ matrix.cask.token }}
         id: install
@@ -178,28 +199,12 @@ jobs:
         if: always() && steps.install.outcome == 'success' && join(fromJSON(steps.info.outputs.cask_dependencies)) != ''
         timeout-minutes: 30
 
-      - name: Compare installed and running apps and services with snapshot
+      # Workaround until the `cache` action uses the changes from
+      # https://github.com/actions/toolkit/pull/580.
+      - name: Unlink workspace
         run: |
-          brew ruby -r "$(brew --repository homebrew/cask)/cmd/lib/check.rb" <<'EOF'
-            before = JSON.parse(<<~'EOS').transform_keys(&:to_sym)
-              ${{ steps.snapshot.outputs.before }}
-            EOS
-            after = Check.all
-            errors = Check.errors(before, after)
-            errors.each do |error|
-              onoe error
-            end
-            error = errors.map { |e|
-              Tty.strip_ansi(e)
-                .gsub(/\r/, '%0D')
-                .gsub(/\n/, '%0A')
-                .gsub(/]/, '%5D')
-                .gsub(/;/, '%3B')
-            }.join("\n\n")
-            puts "::error file=${{ matrix.cask.path }}::#{error}"
-            exit 1 if errors.any?
-          EOF
-        if: always() && steps.snapshot.outcome == 'success'
+          rm "${GITHUB_WORKSPACE}"
+          mkdir "${GITHUB_WORKSPACE}"
   conclusion:
     name: conclusion
     needs: test
