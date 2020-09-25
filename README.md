@@ -52,6 +52,8 @@ Multiple major releases can be installed side-by-side. To get a list of availabl
 | OpenJDK14 with OpenJ9 JVM | `adoptopenjdk14-openj9` | `adoptopenjdk14-openj9-jre` |
 | OpenJDK14 with OpenJ9 JVM, large heap* | `adoptopenjdk14-openj9-large` | `adoptopenjdk14-openj9-jre-large` |
 | OpenJDK15 with Hotspot JVM | `adoptopenjdk15` | `adoptopenjdk15-jre` |
+| OpenJDK15 with OpenJ9 JVM | `adoptopenjdk15-openj9` | `adoptopenjdk15-openj9-jre` |
+| OpenJDK15 with OpenJ9 JVM, large heap* | `adoptopenjdk15-openj9-large` | `adoptopenjdk15-openj9-jre-large` |
 
 \* Large heap: Use this if you need heap memory > 57GB, or > 25GB on Linux. It enables `-Xnocompressedref` ([doc][docnocref]). Use it along with `-Xmx` ([doc][docmx]) which sets the max heap size.
 
