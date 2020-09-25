@@ -7,6 +7,7 @@ cask "adoptopenjdk11-jre" do
   url "https://github.com/AdoptOpenJDK/openjdk11-binaries/releases/download/jdk-11.0.8%2B10/OpenJDK11U-jre_x64_mac_hotspot_11.0.8_10.pkg"
   appcast "https://github.com/AdoptOpenJDK/openjdk#{version.major}-binaries/releases/latest"
   name "AdoptOpenJDK 11 (JRE)"
+  desc "AdoptOpenJDK OpenJDK (Java) Development Kit"
   homepage "https://adoptopenjdk.net/"
 
   pkg "OpenJDK11U-jre_x64_mac_hotspot_11.0.8_10.pkg"

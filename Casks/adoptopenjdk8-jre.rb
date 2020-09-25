@@ -7,6 +7,7 @@ cask "adoptopenjdk8-jre" do
   url "https://github.com/AdoptOpenJDK/openjdk8-binaries/releases/download/jdk8u265-b01/OpenJDK8U-jre_x64_mac_hotspot_8u265b01.pkg"
   appcast "https://github.com/adoptopenjdk/openjdk#{version.before_comma}-binaries/releases/latest"
   name "AdoptOpenJDK 8 (JRE)"
+  desc "AdoptOpenJDK OpenJDK (Java) Development Kit"
   homepage "https://adoptopenjdk.net/"
 
   pkg "OpenJDK8U-jre_x64_mac_hotspot_8u265b01.pkg"

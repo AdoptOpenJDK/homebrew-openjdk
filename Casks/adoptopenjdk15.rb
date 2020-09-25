@@ -7,6 +7,7 @@ cask "adoptopenjdk15" do
   url "https://github.com/AdoptOpenJDK/openjdk15-binaries/releases/download/jdk-15%2B36/OpenJDK15U-jdk_x64_mac_hotspot_15_36.pkg"
   appcast "https://github.com/AdoptOpenJDK/openjdk#{version.major}-binaries/releases/latest"
   name "AdoptOpenJDK 15"
+  desc "AdoptOpenJDK OpenJDK (Java) Development Kit"
   homepage "https://adoptopenjdk.net/"
 
   pkg "OpenJDK15U-jdk_x64_mac_hotspot_15_36.pkg"

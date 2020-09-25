@@ -7,6 +7,7 @@ cask "adoptopenjdk8-openj9" do
   url "https://github.com/AdoptOpenJDK/openjdk8-binaries/releases/download/jdk8u265-b01_openj9-0.21.0/OpenJDK8U-jdk_x64_mac_openj9_8u265b01_openj9-0.21.0.pkg"
   appcast "https://github.com/adoptopenjdk/openjdk#{version.before_comma}-binaries/releases/latest"
   name "AdoptOpenJDK 8 (OpenJ9)"
+  desc "AdoptOpenJDK OpenJDK (Java) Development Kit"
   homepage "https://adoptopenjdk.net/"
 
   pkg "OpenJDK8U-jdk_x64_mac_openj9_8u265b01_openj9-0.21.0.pkg"

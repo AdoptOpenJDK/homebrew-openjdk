@@ -6,6 +6,7 @@ cask "adoptopenjdk9" do
   url "https://github.com/AdoptOpenJDK/openjdk#{version.before_comma}-binaries/releases/download/jdk-#{version.before_comma}%2B#{version.after_comma}/OpenJDK#{version.before_comma}U-jdk_x64_mac_hotspot_#{version.before_comma}_#{version.after_comma}.tar.gz"
   appcast "https://github.com/adoptopenjdk/openjdk#{version.before_comma}-binaries/releases.atom"
   name "AdoptOpenJDK 9"
+  desc "AdoptOpenJDK OpenJDK (Java) Development Kit"
   homepage "https://adoptopenjdk.net/"
 
   postflight do

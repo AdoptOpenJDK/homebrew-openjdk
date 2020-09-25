@@ -7,6 +7,7 @@ cask "adoptopenjdk13-jre" do
   url "https://github.com/AdoptOpenJDK/openjdk13-binaries/releases/download/jdk-13.0.2%2B8/OpenJDK13U-jre_x64_mac_hotspot_13.0.2_8.pkg"
   appcast "https://github.com/AdoptOpenJDK/openjdk#{version.major}-binaries/releases/latest"
   name "AdoptOpenJDK 13 (JRE)"
+  desc "AdoptOpenJDK OpenJDK (Java) Development Kit"
   homepage "https://adoptopenjdk.net/"
 
   pkg "OpenJDK13U-jre_x64_mac_hotspot_13.0.2_8.pkg"
