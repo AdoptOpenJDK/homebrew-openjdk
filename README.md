@@ -65,7 +65,7 @@ Multiple major releases can be installed side-by-side. To get a list of availabl
 ```bash
 jdk() {
         version=$1
-        export JAVA_HOME=$(/usr/libexec/java_home -v"$version");
+        export JAVA_HOME=$(/usr/libexec/java_home -V"$version");
         java -version
  }
 ```
@@ -75,7 +75,7 @@ For Fish shell user, add the below function in your `~/.config/fish/functions`
 ```fish
 function jdk
 	set java_version $argv
-	set -Ux JAVA_HOME (/usr/libexec/java_home -v $java_version)
+	set -Ux JAVA_HOME (/usr/libexec/java_home -V $java_version)
 	java -version
 end
 ```
