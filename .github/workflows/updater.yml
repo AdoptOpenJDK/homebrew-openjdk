@@ -21,12 +21,17 @@ jobs:
         repository: adoptopenjdk-github-bot/homebrew-openjdk
         token: ${{ secrets.ACCESS_TOKEN }}
         ssh-key: ${{ secrets.ADOPT_BOT_SSH_PRIVATE }}
-
-    - name: Run updater
+        
+    - name: Setup Git repos
       run: |
         git remote rename origin fork
         git remote add upstream https://github.com/AdoptOpenJDK/homebrew-openjdk.git
         git remote -v
+        git fetch --all
+        git reset --hard upstream/master
+
+    - name: Run updater
+      run: |
         FORCE=context.payload.inputs.force
         if [ "$FORCE" == "True" ]; then
             force_flag="--force"
