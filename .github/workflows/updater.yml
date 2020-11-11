@@ -24,6 +24,8 @@ jobs:
         
     - name: Setup Git repos
       run: |
+        git config --global user.email "action@github.com"
+        git config --global user.name "GitHub Action"
         git remote rename origin fork
         git remote add upstream https://github.com/AdoptOpenJDK/homebrew-openjdk.git
         git remote -v
