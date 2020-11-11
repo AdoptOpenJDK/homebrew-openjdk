@@ -38,5 +38,5 @@ jobs:
         fi
         bash auto_updater.sh --push "$force_flag"
       env:
-        GITHUB_USER: ${{ secrets.GITHUB_USER }}
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_USER: adoptopenjdk-github-bot
+        GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
