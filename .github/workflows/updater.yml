@@ -32,7 +32,7 @@ jobs:
 
     - name: Run updater
       run: |
-        FORCE=${{ context.payload.inputs.force }}
+        FORCE=${{ github.event.inputs.force }}
         if [ "$FORCE" == "True" ]; then
             force_flag="--force"
         fi
