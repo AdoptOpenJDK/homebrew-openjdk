@@ -24,6 +24,7 @@ jobs:
 
     - name: Run updater
       run: |
+        cd homebrew-openjdk
         git remote rename origin upstream
         FORCE=context.payload.inputs.force
         if [ "$FORCE" == "True" ]; then
