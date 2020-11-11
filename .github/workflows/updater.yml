@@ -37,3 +37,6 @@ jobs:
             force_flag="--force"
         fi
         bash auto_updater.sh --push "$force_flag"
+      env:
+        GITHUB_USER: ${{ secrets.GITHUB_USER }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
