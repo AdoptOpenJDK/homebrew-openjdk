@@ -6,7 +6,7 @@ on:
 
 jobs:
   cancel-previous-runs:
-    if: startsWith(github.repository, 'Homebrew/')
+    if: startsWith(github.repository, 'AdoptOpenJDK/')
     runs-on: ubuntu-latest
     steps:
       - name: Cancel Previous Runs
