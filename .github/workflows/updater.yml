@@ -1,0 +1,32 @@
+name: Updater
+
+on: 
+    workflow_dispatch:
+        inputs:
+            force:
+                description: 'Force update the cask or not. Set to True if needed'     
+                required: true
+                default: 'False'
+    schedule:
+        - cron: '0 0 * * *' # every day
+
+jobs:
+  updater:
+    if: startsWith(github.repository, 'AdoptOpenJDK/')
+    runs-on: ubuntu-latest
+    steps:
+
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+        token: ${{ secrets.ACCESS_TOKEN }}
+        ssh-key: ${{ secrets.ADOPT_BOT_SSH_PRIVATE }}
+
+    - name: Run updater
+      run: |
+        git remote rename origin upstream
+        FORCE=context.payload.inputs.force
+        if [ "$FORCE" == "True" ]; then
+            force_flag="--force"
+        fi
+        bash auto_updater.sh --push "$force_flag"
