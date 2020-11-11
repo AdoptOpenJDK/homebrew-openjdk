@@ -21,11 +21,21 @@ jobs:
         fetch-depth: 0
         token: ${{ secrets.ACCESS_TOKEN }}
         ssh-key: ${{ secrets.ADOPT_BOT_SSH_PRIVATE }}
+        
+    - name: Update remote
+      run: git remote rename origin upstream
+      
+    - name: Checkout Bot repo
+      uses: actions/checkout@v2
+      with:
+        repository: adoptopenjdk-github-bot/homebrew-openjdk
+        token: ${{ secrets.ACCESS_TOKEN }}
+        ssh-key: ${{ secrets.ADOPT_BOT_SSH_PRIVATE }}
 
     - name: Run updater
       run: |
-        cd homebrew-openjdk
-        git remote rename origin upstream
+        git remote rename origin fork
+        git remote -v
         FORCE=context.payload.inputs.force
         if [ "$FORCE" == "True" ]; then
             force_flag="--force"
