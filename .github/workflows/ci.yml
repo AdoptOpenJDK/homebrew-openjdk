@@ -183,7 +183,7 @@ jobs:
         timeout-minutes: 30
 
       - name: Run brew uninstall --cask ${{ matrix.cask.token }}
-        run: brew cask uninstall --cask '${{ matrix.cask.path }}'
+        run: brew uninstall --cask '${{ matrix.cask.path }}'
         if: always() && steps.install.outcome == 'success' && !fromJSON(steps.info.outputs.manual_installer)
         timeout-minutes: 30
 
@@ -195,7 +195,7 @@ jobs:
 
       - name: Uninstall cask dependencies
         run: |
-          brew cask uninstall --cask ${{ join(fromJSON(steps.info.outputs.cask_dependencies), ' ') }}
+          brew uninstall --cask ${{ join(fromJSON(steps.info.outputs.cask_dependencies), ' ') }}
         if: always() && steps.install.outcome == 'success' && join(fromJSON(steps.info.outputs.cask_dependencies)) != ''
         timeout-minutes: 30
 
