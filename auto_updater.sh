@@ -115,10 +115,14 @@ function update_casks {
                 appcast="https://github.com/adoptopenjdk/openjdk#{version.before_comma}-binaries/releases/latest"
               else
                 minor=$(echo $api_latest | python3 -c "import sys, json; print(json.load(sys.stdin)[0]['version_data']['minor'])")
+                adopt_build_number=$(echo $api_latest | python3 -c "import sys, json; print(json.load(sys.stdin)[0]['version_data']['adopt_build_number'])") || ""
                 if [ "$minor" == 0 ]; then
                   api_version=$(echo $api_latest | python3 -c "import sys, json; print(json.load(sys.stdin)[0]['version_data']['openjdk_version'])" | sed 's/+/,/g')
                 else
                   api_version=$(echo $api_latest | python3 -c "import sys, json; print(json.load(sys.stdin)[0]['version_data']['semver'])" | sed 's/+/,/g')
+                fi
+                if [ "$adopt_build_number" != "" ]; then
+                  api_version="$api_version.$adopt_build_number"
                 fi
                 appcast="https://github.com/AdoptOpenJDK/openjdk#{version.major}-binaries/releases/latest"
               fi
