@@ -7,23 +7,23 @@
 To always get the latest and greatest AdoptOpenJDK, run:
 
 ```bash
-$ brew cask install adoptopenjdk
+$ brew install --cask adoptopenjdk
 ```
 
 The `adoptopenjdk` cask will automatically upgrade to the newest patch or major release as soon as it comes out.
 
-To stay with a specific major release, activate the AdoptOpenJDK tap with `brew tap` and then install the desired version with `brew cask install`:
+To stay with a specific major release, activate the AdoptOpenJDK tap with `brew tap` and then install the desired version with `brew install --cask <version>`:
 
 ```bash
 $ brew tap AdoptOpenJDK/openjdk
-$ brew cask install <version>
+$ brew install --cask <version>
 ```
 
 To install AdoptOpenJDK 14 with HotSpot, run:
 
 ```bash
 $ brew tap AdoptOpenJDK/openjdk
-$ brew cask install adoptopenjdk14
+$ brew install --cask adoptopenjdk14
 ```
 
 Multiple major releases can be installed side-by-side. To get a list of available versions, run `brew search adoptopenjdk` or see the [list here in the README](#available-versions).
