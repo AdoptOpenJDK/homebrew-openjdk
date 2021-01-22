@@ -113,7 +113,7 @@ function update_casks {
                   api_version="$api_version.$adopt_build_number"
                 fi
                 appcast="https://github.com/adoptopenjdk/openjdk#{version.before_comma}-binaries/releases/latest"
-                url="https://github.com/AdoptOpenJDK/openjdk8-binaries/releases/download/jdk#{version.before_comma}u#{version.after_comma.before_colon}-#{version.after_colon}/OpenJDK#{version.before_comma}U-jdk_x64_mac_hotspot_#{version.before_comma}u#{version.after_comma.before_colon}#{version.after_comma.after_colon}.pkg"
+                url="https://github.com/AdoptOpenJDK/openjdk8-binaries/releases/download/jdk#{version.before_comma}u#{version.after_comma.before_colon}-#{version.after_colon}/OpenJDK#{version.before_comma}U-${type}_x64_mac_hotspot_#{version.before_comma}u#{version.after_comma.before_colon}#{version.after_comma.after_colon}.pkg"
               else
                 minor=$(echo $api_latest | python3 -c "import sys, json; print(json.load(sys.stdin)[0]['version_data']['minor'])")
                 adopt_build_number=$(echo $api_latest | python3 -c "import sys, json; print(json.load(sys.stdin)[0]['version_data']['adopt_build_number'])") || ""
@@ -126,7 +126,7 @@ function update_casks {
                   api_version="$api_version.$adopt_build_number"
                 fi
                 appcast="https://github.com/AdoptOpenJDK/openjdk#{version.major}-binaries/releases/latest"
-                url="https://github.com/AdoptOpenJDK/openjdk#{version.major}-binaries/releases/download/jdk-#{version.before_comma}%2B#{version.after_comma}/OpenJDK#{version.major}U-jdk_x64_mac_hotspot_#{version.before_comma}_#{version.after_comma}.pkg"
+                url="https://github.com/AdoptOpenJDK/openjdk#{version.major}-binaries/releases/download/jdk-#{version.before_comma}%2B#{version.after_comma}/OpenJDK#{version.major}U-${type}_x64_mac_hotspot_#{version.before_comma}_#{version.after_comma}.pkg"
               fi
 
               name="AdoptOpenJDK ${version//[!0-9]/}"
