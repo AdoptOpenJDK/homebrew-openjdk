@@ -4,7 +4,7 @@ cask "adoptopenjdk11-openj9-jre-large" do
   sha256 "aa3ddeea193e262c65aade918cce16d31fa7cc883000d36867c55f316fc3ac55"
 
   # github.com/AdoptOpenJDK was verified as official when first introduced to the cask
-  url "https://github.com/AdoptOpenJDK/openjdk#{version.major}-binaries/releases/download/jdk-11.0.10%2B9_openj9-0.24.0}/OpenJDK11U-jre_x64_mac_openj9_macosXL_11.0.10_9_openj9-0.24.0.pkg",
+  url "https://github.com/AdoptOpenJDK/openjdk#{version.major}-binaries/releases/download/jdk-11.0.10%2B9_openj9-0.24.0/OpenJDK11U-jre_x64_mac_openj9_macosXL_11.0.10_9_openj9-0.24.0.pkg",
       verified: "https://github.com/AdoptOpenJDK"
   appcast "https://github.com/AdoptOpenJDK/openjdk#{version.major}-binaries/releases/latest"
   name "AdoptOpenJDK 11 (OpenJ9) (JRE) (XL)"
