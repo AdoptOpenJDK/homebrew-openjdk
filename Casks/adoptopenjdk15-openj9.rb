@@ -4,7 +4,8 @@ cask "adoptopenjdk15-openj9" do
   sha256 "3c8027cc21b1cfaf0aa2c75f2af55a940cd4f530945f45e02730d68f631fa9c4"
 
   # github.com/AdoptOpenJDK was verified as official when first introduced to the cask
-  url "https://github.com/AdoptOpenJDK/openjdk15-binaries/releases/download/jdk-15.0.2%2B7_openj9-0.24.0/OpenJDK15U-jdk_x64_mac_openj9_15.0.2_7_openj9-0.24.0.pkg"
+  url "https://github.com/AdoptOpenJDK/openjdk#{version.major}-binaries/releases/download/jdk-15.0.2%2B7_openj9-0.24.0/OpenJDK15U-jdk_x64_mac_openj9_15.0.2_7_openj9-0.24.0.pkg",
+      verified: "https://github.com/AdoptOpenJDK"
   appcast "https://github.com/AdoptOpenJDK/openjdk#{version.major}-binaries/releases/latest"
   name "AdoptOpenJDK 15 (OpenJ9)"
   desc "AdoptOpenJDK OpenJDK (Java) Development Kit"
