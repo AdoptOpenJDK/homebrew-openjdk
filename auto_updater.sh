@@ -104,7 +104,6 @@ function update_casks {
 
               api_installer_name=$(echo $api_latest | python3 -c "import sys, json; print(json.load(sys.stdin)[0]['binaries'][0]['installer']['name'])")
               release_name=$(echo $api_url | awk '{split($0,a,"/"); print a[8]}')
-              echo $release_name
               if [ $version == "openjdk8" ]; then
                 security=$(echo $api_latest | python3 -c "import sys, json; print(json.load(sys.stdin)[0]['version_data']['security'])")
                 build=$(echo $api_latest | python3 -c "import sys, json; print(json.load(sys.stdin)[0]['version_data']['openjdk_version'])" | cut -d "-" -f 2)
