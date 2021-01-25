@@ -4,7 +4,8 @@ cask "adoptopenjdk11-jre" do
   sha256 "0824585675024dd5e7495b536640614d6084da60e5450eeed9c9fff080128e33"
 
   # github.com/AdoptOpenJDK was verified as official when first introduced to the cask
-  url "https://github.com/AdoptOpenJDK/openjdk11-binaries/releases/download/jdk-11.0.10%2B9/OpenJDK11U-jre_x64_mac_hotspot_11.0.10_9.pkg"
+  url "https://github.com/AdoptOpenJDK/openjdk#{version.major}-binaries/releases/download/jdk-11.0.10%2B9}/OpenJDK11U-jre_x64_mac_hotspot_11.0.10_9.pkg",
+      verified: "https://github.com/AdoptOpenJDK"
   appcast "https://github.com/AdoptOpenJDK/openjdk#{version.major}-binaries/releases/latest"
   name "AdoptOpenJDK 11 (JRE)"
   desc "AdoptOpenJDK OpenJDK (Java) Development Kit"

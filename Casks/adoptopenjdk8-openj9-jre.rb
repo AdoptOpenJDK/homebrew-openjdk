@@ -4,7 +4,8 @@ cask "adoptopenjdk8-openj9-jre" do
   sha256 "649190e9b5ef1196f64f76ea22ad3c3515edef465510219c0e43c02bb660619e"
 
   # github.com/AdoptOpenJDK was verified as official when first introduced to the cask
-  url "https://github.com/AdoptOpenJDK/openjdk8-binaries/releases/download/jdk8u282-b08_openj9-0.24.0/OpenJDK8U-jre_x64_mac_openj9_8u282b08_openj9-0.24.0.pkg"
+  url "https://github.com/AdoptOpenJDK/openjdk#{version.before_comma}-binaries/releases/download/jdk8u282-b08_openj9-0.24.0/OpenJDK8U-jre_x64_mac_openj9_8u282b08_openj9-0.24.0.pkg",
+      verified: "https://github.com/AdoptOpenJDK"
   appcast "https://github.com/adoptopenjdk/openjdk#{version.before_comma}-binaries/releases/latest"
   name "AdoptOpenJDK 8 (OpenJ9) (JRE)"
   desc "AdoptOpenJDK OpenJDK (Java) Development Kit"

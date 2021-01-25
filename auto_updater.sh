@@ -103,7 +103,7 @@ function update_casks {
               api_sha256=$(echo $api_latest | python3 -c "import sys, json; print(json.load(sys.stdin)[0]['binaries'][0]['installer']['checksum'])")
 
               api_installer_name=$(echo $api_latest | python3 -c "import sys, json; print(json.load(sys.stdin)[0]['binaries'][0]['installer']['name'])")
-
+              release_name=$(echo $api_url | awk '{split($0,a,"/"); print a[8]}')
               if [ $version == "openjdk8" ]; then
                 security=$(echo $api_latest | python3 -c "import sys, json; print(json.load(sys.stdin)[0]['version_data']['security'])")
                 build=$(echo $api_latest | python3 -c "import sys, json; print(json.load(sys.stdin)[0]['version_data']['openjdk_version'])" | cut -d "-" -f 2)
@@ -113,7 +113,7 @@ function update_casks {
                   api_version="$api_version.$adopt_build_number"
                 fi
                 appcast="https://github.com/adoptopenjdk/openjdk#{version.before_comma}-binaries/releases/latest"
-                url="https://github.com/AdoptOpenJDK/openjdk8-binaries/releases/download/jdk#{version.before_comma}u#{version.after_comma.before_colon}-#{version.after_colon}/${api_installer_name}"
+                url="https://github.com/AdoptOpenJDK/openjdk#{version.before_comma}-binaries/releases/download/${release_name}/${api_installer_name}"
               else
                 minor=$(echo $api_latest | python3 -c "import sys, json; print(json.load(sys.stdin)[0]['version_data']['minor'])")
                 adopt_build_number=$(echo $api_latest | python3 -c "import sys, json; print(json.load(sys.stdin)[0]['version_data']['adopt_build_number'])") || ""
@@ -126,7 +126,7 @@ function update_casks {
                   api_version="$api_version.$adopt_build_number"
                 fi
                 appcast="https://github.com/AdoptOpenJDK/openjdk#{version.major}-binaries/releases/latest"
-                url="https://github.com/AdoptOpenJDK/openjdk#{version.major}-binaries/releases/download/jdk-#{version.before_comma}%2B#{version.after_comma}/${api_installer_name}"
+                url="https://github.com/AdoptOpenJDK/openjdk#{version.major}-binaries/releases/download/${release_name}}/${api_installer_name}"
               fi
 
               name="AdoptOpenJDK ${version//[!0-9]/}"

@@ -4,7 +4,8 @@ cask "adoptopenjdk14-jre" do
   sha256 "6e645faff5a7d2aa748b16a1af0e904a5ff2ee9fb1849bfffe132ee56a6b7567"
 
   # github.com/AdoptOpenJDK was verified as official when first introduced to the cask
-  url "https://github.com/AdoptOpenJDK/openjdk14-binaries/releases/download/jdk-14.0.2%2B12/OpenJDK14U-jre_x64_mac_hotspot_14.0.2_12.pkg"
+  url "https://github.com/AdoptOpenJDK/openjdk#{version.major}-binaries/releases/download/jdk-14.0.2%2B12}/OpenJDK14U-jre_x64_mac_hotspot_14.0.2_12.pkg",
+      verified: "https://github.com/AdoptOpenJDK"
   appcast "https://github.com/AdoptOpenJDK/openjdk#{version.major}-binaries/releases/latest"
   name "AdoptOpenJDK 14 (JRE)"
   desc "AdoptOpenJDK OpenJDK (Java) Development Kit"

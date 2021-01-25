@@ -4,7 +4,8 @@ cask "adoptopenjdk14-openj9-large" do
   sha256 "509f5c0493808d70e742147c85298b5e8678dc5705b454d1c76c7a2956f9f48a"
 
   # github.com/AdoptOpenJDK was verified as official when first introduced to the cask
-  url "https://github.com/AdoptOpenJDK/openjdk14-binaries/releases/download/jdk-14.0.2%2B12_openj9-0.21.0/OpenJDK14U-jdk_x64_mac_openj9_macosXL_14.0.2_12_openj9-0.21.0.pkg"
+  url "https://github.com/AdoptOpenJDK/openjdk#{version.major}-binaries/releases/download/jdk-14.0.2%2B12_openj9-0.21.0}/OpenJDK14U-jdk_x64_mac_openj9_macosXL_14.0.2_12_openj9-0.21.0.pkg",
+      verified: "https://github.com/AdoptOpenJDK"
   appcast "https://github.com/AdoptOpenJDK/openjdk#{version.major}-binaries/releases/latest"
   name "AdoptOpenJDK 14 (OpenJ9) (XL)"
   desc "AdoptOpenJDK OpenJDK (Java) Development Kit"
