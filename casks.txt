@@ -51,4 +51,9 @@ adoptopenjdk15-openj9
 adoptopenjdk15-openj9-jre
 adoptopenjdk15-openj9-large
 adoptopenjdk15-openj9-jre-large
+# OpenJDK16
+adoptopenjdk16
+adoptopenjdk16-jre
+adoptopenjdk16-openj9
+adoptopenjdk16-openj9-jre
 # Leave this blank line
