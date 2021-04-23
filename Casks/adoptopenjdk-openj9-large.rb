@@ -18,4 +18,13 @@ cask "adoptopenjdk-openj9-large" do
   end
 
   uninstall pkgutil: "net.adoptopenjdk.15-openj9.jdk"
+
+  caveats do
+    discontinued
+
+    <<~EOS
+      Large Heap Casks have now been deprecated. Please use the Normal Heap Casks instead.
+      See https://github.com/AdoptOpenJDK/openjdk-build/issues/2426 for more information.
+    EOS
+  end
 end
