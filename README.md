@@ -1,7 +1,5 @@
 # AdoptOpenJDK - HomeBrew TAP
 
-[![Build Status](https://travis-ci.com/AdoptOpenJDK/homebrew-openjdk.svg?branch=master)](https://travis-ci.com/AdoptOpenJDK/homebrew-openjdk)
-
 ## Usage 
 
 To always get the latest and greatest AdoptOpenJDK, run:
