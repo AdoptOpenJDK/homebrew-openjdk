@@ -34,7 +34,7 @@ Multiple major releases can be installed side-by-side. To get a list of availabl
 | Latest OpenJDK with Hotspot JVM | `adoptopenjdk` | `adoptopenjdk-jre` | 
 | Latest OpenJDK with OpenJ9 JVM | `adoptopenjdk-openj9` | `adoptopenjdk-openj9-jre` | 
 | OpenJDK8 with Hotspot JVM | `adoptopenjdk8` | `adoptopenjdk8-jre` |
-| OpenJDK8 with OpenJ9 JVM | `adoptopenjdk8-openj9` | `adoptopenjdk8-openj9-jre` 
+| OpenJDK8 with OpenJ9 JVM | `adoptopenjdk8-openj9` | `adoptopenjdk8-openj9-jre` |
 | OpenJDK9 with Hotspot JVM | `adoptopenjdk9` | n/a |
 | OpenJDK10 with Hotspot JVM | `adoptopenjdk10` | n/a |
 | OpenJDK11 with Hotspot JVM | `adoptopenjdk11` | `adoptopenjdk11-jre` |
