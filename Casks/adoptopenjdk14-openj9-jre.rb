@@ -4,7 +4,8 @@ cask "adoptopenjdk14-openj9-jre" do
   sha256 "5e7a2770592b1f6d6138d6ed020b487f508b1562f30c6ba789cda836726bba51"
 
   # github.com/AdoptOpenJDK was verified as official when first introduced to the cask
-  url "https://github.com/AdoptOpenJDK/openjdk14-binaries/releases/download/jdk-14.0.2%2B12_openj9-0.21.0/OpenJDK14U-jre_x64_mac_openj9_14.0.2_12_openj9-0.21.0.pkg"
+  url "https://github.com/AdoptOpenJDK/openjdk#{version.major}-binaries/releases/download/jdk-14.0.2%2B12_openj9-0.21.0/OpenJDK14U-jre_x64_mac_openj9_14.0.2_12_openj9-0.21.0.pkg",
+      verified: "https://github.com/AdoptOpenJDK"
   appcast "https://github.com/AdoptOpenJDK/openjdk#{version.major}-binaries/releases/latest"
   name "AdoptOpenJDK 14 (OpenJ9) (JRE)"
   desc "AdoptOpenJDK OpenJDK (Java) Development Kit"
@@ -17,4 +18,16 @@ cask "adoptopenjdk14-openj9-jre" do
   end
 
   uninstall pkgutil: "net.adoptopenjdk.14-openj9.jre"
+
+  caveats do
+    discontinued
+
+    <<~EOS
+      Temurin is the official successor to this software:
+
+        brew install --cask temurin
+
+      See https://github.com/AdoptOpenJDK/homebrew-openjdk/issues/537 for more information.
+    EOS
+  end
 end
