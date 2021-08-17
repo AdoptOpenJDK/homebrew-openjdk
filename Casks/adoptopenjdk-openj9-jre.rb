@@ -18,4 +18,16 @@ cask "adoptopenjdk-openj9-jre" do
   end
 
   uninstall pkgutil: "net.adoptopenjdk.16-openj9.jre"
+
+  caveats do
+    discontinued
+
+    <<~EOS
+      Temurin is the official successor to this software:
+
+        brew install --cask temurin
+
+      See https://github.com/AdoptOpenJDK/homebrew-openjdk/issues/537 for more information.
+    EOS
+  end
 end
