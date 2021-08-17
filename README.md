@@ -1,4 +1,26 @@
-# AdoptOpenJDK - HomeBrew TAP
+# ⚠ DEPRECATION NOTICE ⚠
+This homebrew tap is officially deprecated in favor of the [temurin](https://formulae.brew.sh/cask/temurin) casks provided directly from the Homebrew project, and will receive no further updates after 2021-08-01 (Aug 01, 2021). Please adjust your usage accordingly:
+
+Untap this brew tap:
+
+```bash
+$ brew untap AdoptOpenJDK/openjdk
+```
+
+To download the latest version (16):
+
+```bash
+$ brew install --cask temurin
+```
+
+To install other versions:
+
+```bash
+$ brew tap homebrew/cask-versions
+$ brew install --cask temurin8
+```
+
+## AdoptOpenJDK - HomeBrew TAP
 
 ## Usage 
 
