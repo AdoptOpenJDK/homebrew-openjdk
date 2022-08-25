@@ -18,7 +18,7 @@ cask "adoptopenjdk15-openj9-large" do
   end
 
   uninstall pkgutil: "net.adoptopenjdk.15-openj9.jdk"
-  
+
   caveats do
     discontinued
 
