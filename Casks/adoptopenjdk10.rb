@@ -11,35 +11,70 @@ cask "adoptopenjdk10" do
 
   postflight do
     system_command "/bin/mv",
-                   args: ["-f", "--", "#{staged_path}/jdk-10.0.2+13", "/Library/Java/JavaVirtualMachines/adoptopenjdk-10.jdk"],
+                   args: [
+                     "-f",
+                     "--",
+                     "#{staged_path}/jdk-10.0.2+13",
+                     "/Library/Java/JavaVirtualMachines/adoptopenjdk-10.jdk",
+                   ],
                    sudo: true
 
     system_command "/bin/mkdir",
-                   args: ["-p", "--", "/Library/Java/JavaVirtualMachines/adoptopenjdk-10.jdk/Contents/Home/bundle/Libraries"],
+                   args: [
+                     "-p",
+                     "--",
+                     "/Library/Java/JavaVirtualMachines/adoptopenjdk-10.jdk/Contents/Home/bundle/Libraries",
+                   ],
                    sudo: true
 
     system_command "/bin/ln",
-                   args: ["-nsf", "--", "/Library/Java/JavaVirtualMachines/adoptopenjdk-10.jdk/Contents/Home/lib/server/libjvm.dylib", "/Library/Java/JavaVirtualMachines/adoptopenjdk-10.jdk/Contents/Home/bundle/Libraries/libserver.dylib"],
+                   args: [
+                     "-nsf",
+                     "--",
+                     "/Library/Java/JavaVirtualMachines/adoptopenjdk-10.jdk/Contents/Home/lib/server/libjvm.dylib",
+                     "/Library/Java/JavaVirtualMachines/adoptopenjdk-10.jdk/\
+                     Contents/Home/bundle/Libraries/libserver.dylib",
+                   ],
                    sudo: true
 
     system_command "/usr/libexec/PlistBuddy",
-                   args: ["-c", "Set :CFBundleGetInfoString AdoptOpenJDK 10+0.2:13", "/Library/Java/JavaVirtualMachines/adoptopenjdk-10.jdk/Contents/Info.plist"],
+                   args: [
+                     "-c",
+                     "Set :CFBundleGetInfoString AdoptOpenJDK 10+0.2:13",
+                     "/Library/Java/JavaVirtualMachines/adoptopenjdk-10.jdk/Contents/Info.plist",
+                   ],
                    sudo: true
 
     system_command "/usr/libexec/PlistBuddy",
-                   args: ["-c", "Set :CFBundleIdentifier net.adoptopenjdk.10.jdk", "/Library/Java/JavaVirtualMachines/adoptopenjdk-10.jdk/Contents/Info.plist"],
+                   args: [
+                     "-c",
+                     "Set :CFBundleIdentifier net.adoptopenjdk.10.jdk",
+                     "/Library/Java/JavaVirtualMachines/adoptopenjdk-10.jdk/Contents/Info.plist",
+                   ],
                    sudo: true
 
     system_command "/usr/libexec/PlistBuddy",
-                   args: ["-c", "Set :CFBundleName AdoptOpenJDK 10", "/Library/Java/JavaVirtualMachines/adoptopenjdk-10.jdk/Contents/Info.plist"],
+                   args: [
+                     "-c",
+                     "Set :CFBundleName AdoptOpenJDK 10",
+                     "/Library/Java/JavaVirtualMachines/adoptopenjdk-10.jdk/Contents/Info.plist",
+                   ],
                    sudo: true
 
     system_command "/usr/libexec/PlistBuddy",
-                   args: ["-c", "Set :JavaVM:JVMPlatformVersion 10.0.2:13", "/Library/Java/JavaVirtualMachines/adoptopenjdk-10.jdk/Contents/Info.plist"],
+                   args: [
+                     "-c",
+                     "Set :JavaVM:JVMPlatformVersion 10.0.2:13",
+                     "/Library/Java/JavaVirtualMachines/adoptopenjdk-10.jdk/Contents/Info.plist",
+                   ],
                    sudo: true
 
     system_command "/usr/libexec/PlistBuddy",
-                   args: ["-c", "Set :JavaVM:JVMVendor AdoptOpenJDK", "/Library/Java/JavaVirtualMachines/adoptopenjdk-10.jdk/Contents/Info.plist"],
+                   args: [
+                     "-c",
+                     "Set :JavaVM:JVMVendor AdoptOpenJDK",
+                     "/Library/Java/JavaVirtualMachines/adoptopenjdk-10.jdk/Contents/Info.plist",
+                   ],
                    sudo: true
   end
 
