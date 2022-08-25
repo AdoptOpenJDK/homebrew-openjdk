@@ -32,8 +32,8 @@ cask "adoptopenjdk10" do
                      "-nsf",
                      "--",
                      "/Library/Java/JavaVirtualMachines/adoptopenjdk-10.jdk/Contents/Home/lib/server/libjvm.dylib",
-                     "/Library/Java/JavaVirtualMachines/adoptopenjdk-10.jdk/\
-                     Contents/Home/bundle/Libraries/libserver.dylib",
+                     "/Library/Java/JavaVirtualMachines/adoptopenjdk-10.jdk/" \
+                     "Contents/Home/bundle/Libraries/libserver.dylib",
                    ],
                    sudo: true
 
