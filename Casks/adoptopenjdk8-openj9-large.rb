@@ -6,7 +6,7 @@ cask "adoptopenjdk8-openj9-large" do
   # github.com/AdoptOpenJDK was verified as official when first introduced to the cask
   url "https://github.com/AdoptOpenJDK/openjdk#{version.csv.first}-binaries/releases/download/jdk8u282-b08_openj9-0.24.0/OpenJDK8U-jdk_x64_mac_openj9_macosXL_8u282b08_openj9-0.24.0.pkg",
       verified: "https://github.com/AdoptOpenJDK"
-  appcast "https://github.com/adoptopenjdk/openjdk8-binaries/releases/latest"
+  livecheck "https://github.com/adoptopenjdk/openjdk8-binaries/releases/latest"
   name "AdoptOpenJDK 8 (OpenJ9) (XL)"
   desc "AdoptOpenJDK OpenJDK (Java) Development Kit"
   homepage "https://adoptopenjdk.net/"

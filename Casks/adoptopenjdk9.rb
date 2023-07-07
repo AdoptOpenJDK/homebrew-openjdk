@@ -4,7 +4,7 @@ cask "adoptopenjdk9" do
 
   # github.com/AdoptOpenJDK was verified as official when first introduced to the cask
   url "https://github.com/AdoptOpenJDK/openjdk#{version.csv.first}-binaries/releases/download/jdk-#{version.csv.first}%2B#{version.csv.second}/OpenJDK#{version.csv.first}U-jdk_x64_mac_hotspot_#{version.csv.first}_#{version.csv.second}.tar.gz", verified: "https://github.com/AdoptOpenJDK"
-  appcast "https://github.com/adoptopenjdk/openjdk#{version.before_comma}-binaries/releases.atom"
+  livecheck "https://github.com/adoptopenjdk/openjdk#{version.before_comma}-binaries/releases.atom"
   name "AdoptOpenJDK 9"
   desc "AdoptOpenJDK OpenJDK (Java) Development Kit"
   homepage "https://adoptopenjdk.net/"

@@ -6,7 +6,7 @@ cask "adoptopenjdk11-openj9-jre-large" do
   # github.com/AdoptOpenJDK was verified as official when first introduced to the cask
   url "https://github.com/AdoptOpenJDK/openjdk#{version.major}-binaries/releases/download/jdk-11.0.10%2B9_openj9-0.24.0/OpenJDK11U-jre_x64_mac_openj9_macosXL_11.0.10_9_openj9-0.24.0.pkg",
       verified: "https://github.com/AdoptOpenJDK"
-  appcast "https://github.com/AdoptOpenJDK/openjdk11-binaries/releases/tag/jdk-11.0.10%2B9_openj9-0.24.0"
+  livecheck "https://github.com/AdoptOpenJDK/openjdk11-binaries/releases/tag/jdk-11.0.10%2B9_openj9-0.24.0"
   name "AdoptOpenJDK 11 (OpenJ9) (JRE) (XL)"
   desc "AdoptOpenJDK OpenJDK (Java) Development Kit"
   homepage "https://adoptopenjdk.net/"

@@ -112,7 +112,7 @@ function update_casks {
                 if [ "$adopt_build_number" != "" ]; then
                   api_version="$api_version.$adopt_build_number"
                 fi
-                appcast="https://github.com/adoptopenjdk/openjdk#{version.before_comma}-binaries/releases/latest"
+                livecheck="https://github.com/adoptopenjdk/openjdk#{version.before_comma}-binaries/releases/latest"
                 url="https://github.com/AdoptOpenJDK/openjdk#{version.before_comma}-binaries/releases/download/${release_name}/${api_installer_name}"
               else
                 minor=$(echo $api_latest | python3 -c "import sys, json; print(json.load(sys.stdin)[0]['version_data']['minor'])")
@@ -125,7 +125,7 @@ function update_casks {
                 if [ "$adopt_build_number" != "" ]; then
                   api_version="$api_version.$adopt_build_number"
                 fi
-                appcast="https://github.com/AdoptOpenJDK/openjdk#{version.major}-binaries/releases/latest"
+                livecheck="https://github.com/AdoptOpenJDK/openjdk#{version.major}-binaries/releases/latest"
                 url="https://github.com/AdoptOpenJDK/openjdk#{version.major}-binaries/releases/download/${release_name}/${api_installer_name}"
               fi
 
@@ -153,7 +153,7 @@ function update_casks {
               | sed -E "s/\\{version_number\\}/$api_version/g" \
               | sed -E "s/\\{shasum\\}/$api_sha256/g" \
               | sed -E "s|\\{cask_url\\}|$url|g" \
-              | sed -E "s|\\{appcast\\}|$appcast|g" \
+              | sed -E "s|\\{livecheck\\}|$livecheck|g" \
               | sed -E "s/\\{name\\}/$name/g" \
               | sed -E "s/\\{filename\\}/$api_installer_name/g" \
               | sed -E "s/\\{identifier\\}/$identifier/g" \
