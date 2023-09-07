@@ -6,7 +6,7 @@ cask "adoptopenjdk16-jre" do
   # github.com/AdoptOpenJDK was verified as official when first introduced to the cask
   url "https://github.com/AdoptOpenJDK/openjdk#{version.major}-binaries/releases/download/jdk-16.0.1%2B9/OpenJDK16U-jre_x64_mac_hotspot_16.0.1_9.pkg",
       verified: "https://github.com/AdoptOpenJDK"
-  appcast "https://github.com/AdoptOpenJDK/openjdk#{version.major}-binaries/releases/latest"
+  livecheck "https://github.com/AdoptOpenJDK/openjdk#{version.major}-binaries/releases/latest"
   name "AdoptOpenJDK 16 (JRE)"
   desc "AdoptOpenJDK OpenJDK (Java) Development Kit"
   homepage "https://adoptopenjdk.net/"

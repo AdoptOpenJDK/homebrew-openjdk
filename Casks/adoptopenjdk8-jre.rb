@@ -6,7 +6,7 @@ cask "adoptopenjdk8-jre" do
   # github.com/AdoptOpenJDK was verified as official when first introduced to the cask
   url "https://github.com/AdoptOpenJDK/openjdk#{version.csv.first}-binaries/releases/download/jdk8u292-b10/OpenJDK8U-jre_x64_mac_hotspot_8u292b10.pkg",
       verified: "https://github.com/AdoptOpenJDK"
-  appcast "https://github.com/adoptopenjdk/openjdk8-binaries/releases/latest"
+  livecheck "https://github.com/adoptopenjdk/openjdk8-binaries/releases/latest"
   name "AdoptOpenJDK 8 (JRE)"
   desc "AdoptOpenJDK OpenJDK (Java) Development Kit"
   homepage "https://adoptopenjdk.net/"

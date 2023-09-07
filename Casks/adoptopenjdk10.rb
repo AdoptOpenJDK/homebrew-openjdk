@@ -4,7 +4,7 @@ cask "adoptopenjdk10" do
 
   # github.com/AdoptOpenJDK was verified as official when first introduced to the cask
   url "https://github.com/AdoptOpenJDK/openjdk#{version.major}-binaries/releases/download/jdk-10.0.2%2B13.1/OpenJDK10U-jdk_x64_mac_hotspot_10.0.2_13.tar.gz", verified: "https://github.com/AdoptOpenJDK"
-  appcast "https://github.com/AdoptOpenJDK/openjdk10-binaries/releases/latest"
+  livecheck "https://github.com/AdoptOpenJDK/openjdk10-binaries/releases/latest"
   name "AdoptOpenJDK 10"
   desc "AdoptOpenJDK OpenJDK (Java) Development Kit"
   homepage "https://adoptopenjdk.net/"
